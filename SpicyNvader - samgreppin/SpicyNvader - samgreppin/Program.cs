@@ -3,10 +3,6 @@
 byte bytPositionY = 15; // Position Y of the arrow
 string strPlayerUsername; // Username of the current player
 
-
-
-
-
 ///// Main code /////
 
 while (true)
