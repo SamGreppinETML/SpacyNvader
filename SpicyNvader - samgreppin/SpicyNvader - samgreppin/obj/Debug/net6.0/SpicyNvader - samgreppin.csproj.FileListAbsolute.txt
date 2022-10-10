@@ -34,3 +34,21 @@ C:\Users\theba\Desktop\SpacyNvader\SpicyNvader - samgreppin\SpicyNvader - samgre
 C:\Users\theba\Desktop\SpacyNvader\SpicyNvader - samgreppin\SpicyNvader - samgreppin\obj\Debug\net6.0\SpicyNvader - samgreppin.pdb
 C:\Users\theba\Desktop\SpacyNvader\SpicyNvader - samgreppin\SpicyNvader - samgreppin\obj\Debug\net6.0\SpicyNvader - samgreppin.genruntimeconfig.cache
 C:\Users\theba\Desktop\SpacyNvader\SpicyNvader - samgreppin\SpicyNvader - samgreppin\obj\Debug\net6.0\ref\SpicyNvader - samgreppin.dll
+C:\Users\samgreppin\Desktop\SpacyNvader\SpicyNvader - samgreppin\SpicyNvader - samgreppin\bin\Debug\net6.0\SpicyNvader - samgreppin.exe
+C:\Users\samgreppin\Desktop\SpacyNvader\SpicyNvader - samgreppin\SpicyNvader - samgreppin\bin\Debug\net6.0\SpicyNvader - samgreppin.deps.json
+C:\Users\samgreppin\Desktop\SpacyNvader\SpicyNvader - samgreppin\SpicyNvader - samgreppin\bin\Debug\net6.0\SpicyNvader - samgreppin.runtimeconfig.json
+C:\Users\samgreppin\Desktop\SpacyNvader\SpicyNvader - samgreppin\SpicyNvader - samgreppin\bin\Debug\net6.0\SpicyNvader - samgreppin.dll
+C:\Users\samgreppin\Desktop\SpacyNvader\SpicyNvader - samgreppin\SpicyNvader - samgreppin\bin\Debug\net6.0\SpicyNvader - samgreppin.pdb
+C:\Users\samgreppin\Desktop\SpacyNvader\SpicyNvader - samgreppin\SpicyNvader - samgreppin\bin\Debug\net6.0\Classes.dll
+C:\Users\samgreppin\Desktop\SpacyNvader\SpicyNvader - samgreppin\SpicyNvader - samgreppin\bin\Debug\net6.0\Classes.pdb
+C:\Users\samgreppin\Desktop\SpacyNvader\SpicyNvader - samgreppin\SpicyNvader - samgreppin\obj\Debug\net6.0\SpicyNvader - samgreppin.csproj.AssemblyReference.cache
+C:\Users\samgreppin\Desktop\SpacyNvader\SpicyNvader - samgreppin\SpicyNvader - samgreppin\obj\Debug\net6.0\SpicyNvader - samgreppin.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\samgreppin\Desktop\SpacyNvader\SpicyNvader - samgreppin\SpicyNvader - samgreppin\obj\Debug\net6.0\SpicyNvader - samgreppin.AssemblyInfoInputs.cache
+C:\Users\samgreppin\Desktop\SpacyNvader\SpicyNvader - samgreppin\SpicyNvader - samgreppin\obj\Debug\net6.0\SpicyNvader - samgreppin.AssemblyInfo.cs
+C:\Users\samgreppin\Desktop\SpacyNvader\SpicyNvader - samgreppin\SpicyNvader - samgreppin\obj\Debug\net6.0\SpicyNvader - samgreppin.csproj.CoreCompileInputs.cache
+C:\Users\samgreppin\Desktop\SpacyNvader\SpicyNvader - samgreppin\SpicyNvader - samgreppin\obj\Debug\net6.0\SpicyNvader - samgreppin.csproj.CopyComplete
+C:\Users\samgreppin\Desktop\SpacyNvader\SpicyNvader - samgreppin\SpicyNvader - samgreppin\obj\Debug\net6.0\SpicyNvader - samgreppin.dll
+C:\Users\samgreppin\Desktop\SpacyNvader\SpicyNvader - samgreppin\SpicyNvader - samgreppin\obj\Debug\net6.0\refint\SpicyNvader - samgreppin.dll
+C:\Users\samgreppin\Desktop\SpacyNvader\SpicyNvader - samgreppin\SpicyNvader - samgreppin\obj\Debug\net6.0\SpicyNvader - samgreppin.pdb
+C:\Users\samgreppin\Desktop\SpacyNvader\SpicyNvader - samgreppin\SpicyNvader - samgreppin\obj\Debug\net6.0\SpicyNvader - samgreppin.genruntimeconfig.cache
+C:\Users\samgreppin\Desktop\SpacyNvader\SpicyNvader - samgreppin\SpicyNvader - samgreppin\obj\Debug\net6.0\ref\SpicyNvader - samgreppin.dll

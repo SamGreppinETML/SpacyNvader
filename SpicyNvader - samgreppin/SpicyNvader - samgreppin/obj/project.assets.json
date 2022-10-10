@@ -27,24 +27,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\theba\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\samgreppin\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\theba\\Desktop\\SpacyNvader\\SpicyNvader - samgreppin\\SpicyNvader - samgreppin\\SpicyNvader - samgreppin.csproj",
+      "projectUniqueName": "C:\\Users\\samgreppin\\Desktop\\SpacyNvader\\SpicyNvader - samgreppin\\SpicyNvader - samgreppin\\SpicyNvader - samgreppin.csproj",
       "projectName": "SpicyNvader - samgreppin",
-      "projectPath": "C:\\Users\\theba\\Desktop\\SpacyNvader\\SpicyNvader - samgreppin\\SpicyNvader - samgreppin\\SpicyNvader - samgreppin.csproj",
-      "packagesPath": "C:\\Users\\theba\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\theba\\Desktop\\SpacyNvader\\SpicyNvader - samgreppin\\SpicyNvader - samgreppin\\obj\\",
+      "projectPath": "C:\\Users\\samgreppin\\Desktop\\SpacyNvader\\SpicyNvader - samgreppin\\SpicyNvader - samgreppin\\SpicyNvader - samgreppin.csproj",
+      "packagesPath": "C:\\Users\\samgreppin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\samgreppin\\Desktop\\SpacyNvader\\SpicyNvader - samgreppin\\SpicyNvader - samgreppin\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\theba\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\samgreppin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -52,15 +51,14 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\theba\\Desktop\\SpacyNvader\\SpicyNvader - samgreppin\\Classes\\Classes.csproj": {
-              "projectPath": "C:\\Users\\theba\\Desktop\\SpacyNvader\\SpicyNvader - samgreppin\\Classes\\Classes.csproj"
+            "C:\\Users\\samgreppin\\Desktop\\SpacyNvader\\SpicyNvader - samgreppin\\Classes\\Classes.csproj": {
+              "projectPath": "C:\\Users\\samgreppin\\Desktop\\SpacyNvader\\SpicyNvader - samgreppin\\Classes\\Classes.csproj"
             }
           }
         }
@@ -80,8 +78,7 @@
           "net47",
           "net471",
           "net472",
-          "net48",
-          "net481"
+          "net48"
         ],
         "assetTargetFallback": true,
         "warn": true,
@@ -90,7 +87,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
       }
     }
   }
