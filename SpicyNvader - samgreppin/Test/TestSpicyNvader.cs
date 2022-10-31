@@ -13,7 +13,8 @@ namespace Test
             bool success = true;
             try
             {
-                p = new Player("ooooooooooooooooooooooooooooooooooooooooo", 1000); // Must fail
+                // Must fail
+                p = new Player("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiii", 1000);
                 success = false;
             }
             catch
