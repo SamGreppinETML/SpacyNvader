@@ -13,6 +13,9 @@ while (true)
     // Position of the cursor at the start
     Console.SetCursorPosition(0, 0);
 
+    // Open the Window full size
+    Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
+
     // Change the color
     Console.ForegroundColor = ConsoleColor.Green;
 
@@ -94,7 +97,7 @@ while (true)
     switch (Console.ReadKey().Key)
     {
         // If the player press the up arrow
-        case ConsoleKey.UpArrow :
+        case ConsoleKey.UpArrow:
             if (bytPositionY == 15)
             {
                 bytPositionY += 20;
@@ -107,7 +110,7 @@ while (true)
             }
 
         // If the player press the down arrow
-        case ConsoleKey.DownArrow :
+        case ConsoleKey.DownArrow:
             if (bytPositionY == 35)
             {
                 bytPositionY -= 20;
@@ -120,12 +123,15 @@ while (true)
             }
 
         // If the player press the enter key
-        case ConsoleKey.Enter :
+        case ConsoleKey.Enter:
             // Verify the position of the arrow
             switch (bytPositionY)
             {
                 // If the arrow is on Play
-                case 15 :
+                case 15:
+                    // Verify variable
+                    char chrVerify=' ';
+                    int compterTour = 0;
                     do
                     {
                         // Clear the console
@@ -143,60 +149,62 @@ while (true)
                         Console.WriteLine("\t / __)/ )( \\ /  \\  /  \\ / ___)(  __)  ( \\/ )/  \\ / )( \\(  _ \\  / )( \\/ ___)(  __)(  _ \\(  ( \\ / _\\ ( \\/ )(  __)");
                         Console.WriteLine("\t( (__ ) __ ((  O )(  O )\\___ \\ ) _)    )  /(  O )) \\/ ( )   /  ) \\/ (\\___ \\ ) _)  )   //    //    \\/ \\/ \\ ) _)");
                         Console.WriteLine("\t \\___)\\_)(_/ \\__/  \\__/ (____/(____)  (__/  \\__/ \\____/(__\\_)  \\____/(____/(____)(__\\_)\\_)__)\\_/\\_/\\_)(_/(____)");
-
                         // Ask for the username
                         Console.Write("\n\n\tYour username: ");
-
+                        if (compterTour != 0)
+                        {
+                            // Condition
+                            if (chrVerify == 's')
+                            {
+                                // Red color
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("\n\tYour username must be longer than three characters");
+                                Console.ForegroundColor=ConsoleColor.Green;
+                            }
+                            else
+                            {
+                                if (chrVerify == 'l')
+                                {
+                                    // Red color
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("\n\tYour username must be shorter than twenty characters");
+                                    Console.ForegroundColor = ConsoleColor.Green;
+                                }
+                                if (chrVerify == 'y')
+                                {
+                                    Console.WriteLine("\n\tYour username is correct");
+                                }
+                            }
+                        }
+                        Console.SetCursorPosition(23, 8);
+                        chrVerify = 'y';
                         // Read the username and put it in the variable
                         strPlayerUsername = Console.ReadLine();
+
+
 
                         // Check the length of the username
                         // If it's shorter than 3 characters
                         if (strPlayerUsername.Length < 3)
                         {
-                            // Red color
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            // Alert
-                            Console.WriteLine("\tYour username must be longer than three characters\n\tPress enter to try again");
-                            // Put the cursor at the start of the username
-                            Console.SetCursorPosition(23, 8);
-                            // Delete the username
-                            Console.WriteLine("         ");
-                            // Put the cursor at the start of the username
-                            Console.SetCursorPosition(23, 8);
-                            // Green color
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            // Keep open
-                            Console.ReadLine();
+                            // Put 's' in chrVerify
+                            chrVerify = 's';
                         }
                         else
                         {
                             // If it's longer than 20 characters
                             if (strPlayerUsername.Length > 20)
                             {
-                                // Red color
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                // Alert
-                                Console.WriteLine("\tYour username must be shorter than twenty characters\n\tPress enter to try again");
-                                // Put the cursor at the start of the username
-                                Console.SetCursorPosition(23, 8);
-                                // Delete the username
-                                Console.WriteLine("                                                                                                          ");
-                                // Put the cursor at the start of the username
-                                Console.SetCursorPosition(23, 8);
-                                // Green color
-                                Console.ForegroundColor = ConsoleColor.Green;
-                                // Keep open
-                                Console.ReadLine();
+                                // Put 'l' in chrVerify
+                                chrVerify = 'l';
                             }
                             else
                             {
-                                // Alert
-                                Console.WriteLine("\tYour username is correct");
-                                // Keep open
-                                Console.ReadLine();
+                                // Put 'x' in chrVerify
+                                chrVerify = 'y';
                             }
                         }
+                        compterTour++;
                     }
                     while (true == true);
 
