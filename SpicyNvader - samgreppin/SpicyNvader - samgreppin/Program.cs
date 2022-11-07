@@ -126,42 +126,79 @@ while (true)
             {
                 // If the arrow is on Play
                 case 15 :
-                    // Clear the console
-                    Console.Clear();
-
-                    // Change the color
-                    Console.ForegroundColor = ConsoleColor.Green;
-
-                    // Line break
-                    Console.WriteLine();
-                    Console.WriteLine();
-
-                    // Title display
-                    Console.WriteLine("\t  ___  _  _   __    __   ____  ____    _  _  __   _  _  ____    _  _  ____  ____  ____  __ _   __   _  _  ____");
-                    Console.WriteLine("\t / __)/ )( \\ /  \\  /  \\ / ___)(  __)  ( \\/ )/  \\ / )( \\(  _ \\  / )( \\/ ___)(  __)(  _ \\(  ( \\ / _\\ ( \\/ )(  __)");
-                    Console.WriteLine("\t( (__ ) __ ((  O )(  O )\\___ \\ ) _)    )  /(  O )) \\/ ( )   /  ) \\/ (\\___ \\ ) _)  )   //    //    \\/ \\/ \\ ) _)");
-                    Console.WriteLine("\t \\___)\\_)(_/ \\__/  \\__/ (____/(____)  (__/  \\__/ \\____/(__\\_)  \\____/(____/(____)(__\\_)\\_)__)\\_/\\_/\\_)(_/(____)");
-
-                    // Ask for the username
-                    Console.Write("\n\n\tYour username: ");
-
-                    // Read the username and put it in the variable
-                    strPlayerUsername = Console.ReadLine();
-
-                    // Check the length of the username
-                    // If it's shorter than 3 characters
-                    if (strPlayerUsername.Length < 3)
+                    do
                     {
-                        Console.WriteLine("Your username must be longer than three characters");
-                    }
-                    else
-                    {
-                        // If it's longer than 20 characters
-                        if (strPlayerUsername.Length > 20)
+                        // Clear the console
+                        Console.Clear();
+
+                        // Change the color
+                        Console.ForegroundColor = ConsoleColor.Green;
+
+                        // Line break
+                        Console.WriteLine();
+                        Console.WriteLine();
+
+                        // Title display
+                        Console.WriteLine("\t  ___  _  _   __    __   ____  ____    _  _  __   _  _  ____    _  _  ____  ____  ____  __ _   __   _  _  ____");
+                        Console.WriteLine("\t / __)/ )( \\ /  \\  /  \\ / ___)(  __)  ( \\/ )/  \\ / )( \\(  _ \\  / )( \\/ ___)(  __)(  _ \\(  ( \\ / _\\ ( \\/ )(  __)");
+                        Console.WriteLine("\t( (__ ) __ ((  O )(  O )\\___ \\ ) _)    )  /(  O )) \\/ ( )   /  ) \\/ (\\___ \\ ) _)  )   //    //    \\/ \\/ \\ ) _)");
+                        Console.WriteLine("\t \\___)\\_)(_/ \\__/  \\__/ (____/(____)  (__/  \\__/ \\____/(__\\_)  \\____/(____/(____)(__\\_)\\_)__)\\_/\\_/\\_)(_/(____)");
+
+                        // Ask for the username
+                        Console.Write("\n\n\tYour username: ");
+
+                        // Read the username and put it in the variable
+                        strPlayerUsername = Console.ReadLine();
+
+                        // Check the length of the username
+                        // If it's shorter than 3 characters
+                        if (strPlayerUsername.Length < 3)
                         {
-                            Console.WriteLine("Your username must be shorter than twenty characters");
+                            // Red color
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            // Alert
+                            Console.WriteLine("\tYour username must be longer than three characters\n\tPress enter to try again");
+                            // Put the cursor at the start of the username
+                            Console.SetCursorPosition(23, 8);
+                            // Delete the username
+                            Console.WriteLine("         ");
+                            // Put the cursor at the start of the username
+                            Console.SetCursorPosition(23, 8);
+                            // Green color
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            // Keep open
+                            Console.ReadLine();
+                        }
+                        else
+                        {
+                            // If it's longer than 20 characters
+                            if (strPlayerUsername.Length > 20)
+                            {
+                                // Red color
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                // Alert
+                                Console.WriteLine("\tYour username must be shorter than twenty characters\n\tPress enter to try again");
+                                // Put the cursor at the start of the username
+                                Console.SetCursorPosition(23, 8);
+                                // Delete the username
+                                Console.WriteLine("                                                                                                          ");
+                                // Put the cursor at the start of the username
+                                Console.SetCursorPosition(23, 8);
+                                // Green color
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                // Keep open
+                                Console.ReadLine();
+                            }
+                            else
+                            {
+                                // Alert
+                                Console.WriteLine("\tYour username is correct");
+                                // Keep open
+                                Console.ReadLine();
+                            }
                         }
                     }
+                    while (true == true);
 
                     Console.ReadLine();
 
