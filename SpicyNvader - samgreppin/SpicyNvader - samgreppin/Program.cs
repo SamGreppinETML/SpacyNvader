@@ -17,8 +17,6 @@ void DisplayMenu()
 {
     while (true)
     {
-        
-
         // Clear the console
         Console.Clear();
 
@@ -245,10 +243,19 @@ void SelectUsername()
         compterTour++;
     }
 
-    // Retour au menu si le joueur appuie sur Esc
-     if (Console.ReadKey().Key == ConsoleKey.Escape)
+    // Confirm the username
+    Console.SetCursorPosition(23, 8);
+    Console.WriteLine("\n\t                                                                                             ");
+    Console.SetCursorPosition(23, 8);
+    Console.Write("\n\tYour username is valid. Press Esc to go to the main menu.");
+
+    // Verify the position of the arrow
+    while (Console.ReadKey().Key != ConsoleKey.Escape)
     {
-        DisplayMenu();
+        if (Console.ReadKey().Key == ConsoleKey.Escape)
+        {
+            DisplayMenu();
+        }
     }
 }
 

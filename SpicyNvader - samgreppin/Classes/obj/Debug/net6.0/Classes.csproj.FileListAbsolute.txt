@@ -34,3 +34,15 @@ C:\Users\samgreppin\Desktop\SpacyNvader\SpicyNvader - samgreppin\Classes\obj\Deb
 C:\Users\samgreppin\Desktop\SpacyNvader\SpicyNvader - samgreppin\Classes\obj\Debug\net6.0\refint\Classes.dll
 C:\Users\samgreppin\Desktop\SpacyNvader\SpicyNvader - samgreppin\Classes\obj\Debug\net6.0\Classes.pdb
 C:\Users\samgreppin\Desktop\SpacyNvader\SpicyNvader - samgreppin\Classes\obj\Debug\net6.0\ref\Classes.dll
+C:\Users\samgreppin\Desktop\SpicyNvader\SpacyNvader\SpicyNvader - samgreppin\Classes\bin\Debug\net6.0\Classes.deps.json
+C:\Users\samgreppin\Desktop\SpicyNvader\SpacyNvader\SpicyNvader - samgreppin\Classes\bin\Debug\net6.0\Classes.dll
+C:\Users\samgreppin\Desktop\SpicyNvader\SpacyNvader\SpicyNvader - samgreppin\Classes\bin\Debug\net6.0\Classes.pdb
+C:\Users\samgreppin\Desktop\SpicyNvader\SpacyNvader\SpicyNvader - samgreppin\Classes\obj\Debug\net6.0\Classes.csproj.AssemblyReference.cache
+C:\Users\samgreppin\Desktop\SpicyNvader\SpacyNvader\SpicyNvader - samgreppin\Classes\obj\Debug\net6.0\Classes.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\samgreppin\Desktop\SpicyNvader\SpacyNvader\SpicyNvader - samgreppin\Classes\obj\Debug\net6.0\Classes.AssemblyInfoInputs.cache
+C:\Users\samgreppin\Desktop\SpicyNvader\SpacyNvader\SpicyNvader - samgreppin\Classes\obj\Debug\net6.0\Classes.AssemblyInfo.cs
+C:\Users\samgreppin\Desktop\SpicyNvader\SpacyNvader\SpicyNvader - samgreppin\Classes\obj\Debug\net6.0\Classes.csproj.CoreCompileInputs.cache
+C:\Users\samgreppin\Desktop\SpicyNvader\SpacyNvader\SpicyNvader - samgreppin\Classes\obj\Debug\net6.0\Classes.dll
+C:\Users\samgreppin\Desktop\SpicyNvader\SpacyNvader\SpicyNvader - samgreppin\Classes\obj\Debug\net6.0\refint\Classes.dll
+C:\Users\samgreppin\Desktop\SpicyNvader\SpacyNvader\SpicyNvader - samgreppin\Classes\obj\Debug\net6.0\Classes.pdb
+C:\Users\samgreppin\Desktop\SpicyNvader\SpacyNvader\SpicyNvader - samgreppin\Classes\obj\Debug\net6.0\ref\Classes.dll
