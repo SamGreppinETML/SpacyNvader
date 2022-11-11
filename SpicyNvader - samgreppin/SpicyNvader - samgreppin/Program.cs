@@ -2,9 +2,9 @@
 
 ///// Variable declaration /////
 
-byte bytPositionY = 15;   // Position Y of the arrow
-string strPlayerUsername; // Username of the current player
-bool bolVolume = true;    // Volume of the music
+byte bytPositionY = 15;      // Position Y of the arrow
+string strPlayerUsername;    // Username of the current player
+bool bolVolume = true;       // Volume of the music
 byte bytDifficulty = 1;      // Difficulty of the game
 
 ///// Main code /////
@@ -15,8 +15,10 @@ Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
 // Call DisplayMenu()
 DisplayMenu();
 
+// Display the menu
 void DisplayMenu()
 {
+    // Boucle pour savoir quelle touche est appuyée
     while (true)
     {
         // Clear the console
@@ -171,6 +173,7 @@ void DisplayMenu()
     }
 }
 
+// Select the username
 void SelectUsername()
 {
     // Verify variable
@@ -248,16 +251,22 @@ void SelectUsername()
 
     // Confirm the username
     Console.SetCursorPosition(23, 8);
+
+    // Delete the text
     Console.WriteLine("\n\t                                                                                             ");
     Console.SetCursorPosition(23, 8);
+
+    // Confirm the username
     Console.Write("\n\tYour username is valid. Press Esc to go to the main menu.");
 
+    // Verify if the player press Esc
     while (true)
     {
         switch (Console.ReadKey().Key)
         {
             // If the player press the up arrow
             case ConsoleKey.Escape:
+                // Go to the menu
                 DisplayMenu();
                 break;
         }
@@ -267,6 +276,7 @@ void SelectUsername()
     }
 }
 
+// Open settings
 void SelectSettings()
 {
     // Verify variable
@@ -288,8 +298,10 @@ void SelectSettings()
     Console.WriteLine("\t\\__ \\ )__)   )(    )(   _)(_  )  (( (_-.\\__ \\");
     Console.WriteLine("\t(___/(____) (__)  (__) (____)(_)\\_)\\___/(___/");
 
+    // Give information
     Console.WriteLine("\n\n\tSelect your settings and press Enter to change it !");
 
+    // Display the state of the music
     Console.Write("\n\n\t\tMusic : ");
     if (bolVolume == true)
     {
@@ -300,6 +312,7 @@ void SelectSettings()
         Console.Write("\tOFF");
     }
 
+    // Display the difficulty
     Console.Write("\n\n\t\tDifficulty : ");
     if (bytDifficulty == 1)
     {
@@ -310,6 +323,7 @@ void SelectSettings()
         Console.Write("\tJEDI");
     }
 
+    // Verify the key of the player
     while (true)
     {
         // Arrow display
@@ -353,7 +367,7 @@ void SelectSettings()
                     break;
                 }
 
-            // If the player press the enter key
+            // If the player press enter
             case ConsoleKey.Enter:
                 // Verify the position of the arrow
                 switch (bytPositionYSettings)
@@ -398,11 +412,41 @@ void SelectSettings()
     }
 }
 
+// Select score
 void SelectScore()
 {
+    // Clear the console
+    Console.Clear();
 
+    // Change the color
+    Console.ForegroundColor = ConsoleColor.Green;
+
+    // Line break
+    Console.WriteLine();
+    Console.WriteLine();
+
+    // Title display
+    Console.WriteLine("\t ___   ___  _____  ____  ____");
+    Console.WriteLine("\t/ __) / __)(  _  )(  _ \\( ___)");
+    Console.WriteLine("\t\\__ \\( (__  )(_)(  )   / )__)");
+    Console.WriteLine("\t(___/ \\___)(_____)(_)\\_)(____)");
+
+    while (true)
+    {
+        switch (Console.ReadKey().Key)
+        {
+            // If the player press the up arrow
+            case ConsoleKey.Escape:
+                DisplayMenu();
+                break;
+        }
+        Console.SetCursorPosition(65, 9);
+        Console.WriteLine(" ");
+        Console.SetCursorPosition(65, 9);
+    }
 }
 
+// Select about
 void SelectAbout()
 {
     // Verify variable
@@ -426,6 +470,18 @@ void SelectAbout()
 
     Console.WriteLine("\n\n\tWe will tell you some informations about the game ! (In french)");
 
+    Console.WriteLine("\tCe projet a été fait dans le cadre du P_Dev.");
+    Console.WriteLine("\tC'est la parodie du célèbre jeu \"Space Invaders\". Nous le reproduisons en mode console grâce au langage C#.");
+    Console.WriteLine("\tLe jeu possède deux difficultés. Elles peuvent être changées dans le menu \"Settings\" accessible depuis le menu principal.");
+    Console.WriteLine("\tUne fois en jeu, une horde d'aliens va faire des allers retour de droite à gauche et à chaques traversées, elle va descendre.");
+    Console.WriteLine("\tLe but du jeu est de déplacer son vaisseau de droite à gauche afin d'éliminer tous les aliens avant qu'ils touchent le sol.");
+    Console.WriteLine("\tLe joueur doit donc éviter les tirs des aliens en se cachant derrière des obstacles et tous les éliminer");
+    Console.WriteLine("\tgrâce à ses tirs !");
+    Console.WriteLine("\n\tGood luck !");
+
+    Console.WriteLine("\n\tPress Esc to go to the main menu.");
+
+    // Verify the key
     while (true)
     {
         switch (Console.ReadKey().Key)
@@ -441,7 +497,18 @@ void SelectAbout()
     }
 }
 
+// Select exit
 void SelectExit()
 {
+    Console.Clear();
 
+    // Line break
+    Console.WriteLine();
+    Console.WriteLine();
+
+    // Title display
+    Console.WriteLine("\tSee you soon !");
+
+    // Close the programm
+    Environment.Exit(0);
 }
