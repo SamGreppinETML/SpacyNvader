@@ -2,8 +2,10 @@
 
 ///// Variable declaration /////
 
-byte bytPositionY = 15; // Position Y of the arrow
+byte bytPositionY = 15;   // Position Y of the arrow
 string strPlayerUsername; // Username of the current player
+bool bolVolume = true;    // Volume of the music
+byte bytDifficulty = 1;      // Difficulty of the game
 
 ///// Main code /////
 
@@ -143,25 +145,25 @@ void DisplayMenu()
                     // If the arrow is on Play
                     case 20:
                         // Call SelectUsername()
-                        SelectUsername();
+                        SelectSettings();
                         return;
 
                     // If the arrow is on Play
                     case 25:
                         // Call SelectUsername()
-                        SelectUsername();
+                        SelectScore();
                         return;
 
                     // If the arrow is on Play
                     case 30:
                         // Call SelectUsername()
-                        SelectUsername();
+                        SelectAbout();
                         return;
 
                     // If the arrow is on Play
                     case 35:
                         // Call SelectUsername()
-                        SelectUsername();
+                        SelectExit();
                         return;
                 }
                 break;
@@ -191,6 +193,7 @@ void SelectUsername()
         Console.WriteLine("\t / __)/ )( \\ /  \\  /  \\ / ___)(  __)  ( \\/ )/  \\ / )( \\(  _ \\  / )( \\/ ___)(  __)(  _ \\(  ( \\ / _\\ ( \\/ )(  __)");
         Console.WriteLine("\t( (__ ) __ ((  O )(  O )\\___ \\ ) _)    )  /(  O )) \\/ ( )   /  ) \\/ (\\___ \\ ) _)  )   //    //    \\/ \\/ \\ ) _)");
         Console.WriteLine("\t \\___)\\_)(_/ \\__/  \\__/ (____/(____)  (__/  \\__/ \\____/(__\\_)  \\____/(____/(____)(__\\_)\\_)__)\\_/\\_/\\_)(_/(____)");
+
         // Ask for the username
         Console.Write("\n\n\tYour username: ");
         if (compterTour != 0)
@@ -249,19 +252,150 @@ void SelectUsername()
     Console.SetCursorPosition(23, 8);
     Console.Write("\n\tYour username is valid. Press Esc to go to the main menu.");
 
-    // Verify the position of the arrow
-    while (Console.ReadKey().Key != ConsoleKey.Escape)
+    while (true)
     {
-        if (Console.ReadKey().Key == ConsoleKey.Escape)
+        switch (Console.ReadKey().Key)
         {
-            DisplayMenu();
+            // If the player press the up arrow
+            case ConsoleKey.Escape:
+                DisplayMenu();
+                break;
         }
+        Console.SetCursorPosition(65, 9);
+        Console.WriteLine(" ");
+        Console.SetCursorPosition(65, 9);
     }
 }
 
 void SelectSettings()
 {
+    // Verify variable
+    byte bytPositionYSettings = 11;
 
+    // Clear the console
+    Console.Clear();
+
+    // Change the color
+    Console.ForegroundColor = ConsoleColor.Green;
+
+    // Line break
+    Console.WriteLine();
+    Console.WriteLine();
+
+    // Title display
+    Console.WriteLine("\t ___  ____  ____  ____  ____  _  _  ___  ___");
+    Console.WriteLine("\t/ __)( ___)(_  _)(_  _)(_  _)( \\( )/ __)/ __)");
+    Console.WriteLine("\t\\__ \\ )__)   )(    )(   _)(_  )  (( (_-.\\__ \\");
+    Console.WriteLine("\t(___/(____) (__)  (__) (____)(_)\\_)\\___/(___/");
+
+    Console.WriteLine("\n\n\tSelect your settings and press Enter to change it !");
+
+    Console.Write("\n\n\t\tMusic : ");
+    if (bolVolume == true)
+    {
+        Console.Write("\tON");
+    }
+    else
+    {
+        Console.Write("\tOFF");
+    }
+
+    Console.Write("\n\n\t\tDifficulty : ");
+    if (bytDifficulty == 1)
+    {
+        Console.Write("\tPADAWAN");
+    }
+    else
+    {
+        Console.Write("\tJEDI");
+    }
+
+    while (true)
+    {
+        // Arrow display
+        Console.SetCursorPosition(0, bytPositionYSettings);
+        Console.Write("\t---->");
+
+        // Verify the key
+        switch (Console.ReadKey().Key)
+        {
+            // If the player press the up arrow
+            case ConsoleKey.UpArrow:
+                if (bytPositionYSettings == 11)
+                {
+                    Console.SetCursorPosition(0, bytPositionYSettings);
+                    Console.Write("\t     ");
+                    bytPositionYSettings = 13;
+                    break;
+                }
+                else
+                {
+                    Console.SetCursorPosition(0, bytPositionYSettings);
+                    Console.Write("\t     ");
+                    bytPositionYSettings = 11;
+                    break;
+                }
+
+            // If the player press the down arrow
+            case ConsoleKey.DownArrow:
+                if (bytPositionYSettings == 11)
+                {
+                    Console.SetCursorPosition(0, bytPositionYSettings);
+                    Console.Write("\t     ");
+                    bytPositionYSettings = 13;
+                    break;
+                }
+                else
+                {
+                    Console.SetCursorPosition(0, bytPositionYSettings);
+                    Console.Write("\t     ");
+                    bytPositionYSettings = 11;
+                    break;
+                }
+
+            // If the player press the enter key
+            case ConsoleKey.Enter:
+                // Verify the position of the arrow
+                switch (bytPositionYSettings)
+                {
+                    case 11:
+                        if (bolVolume == true)
+                        {
+                            bolVolume = false;
+                            Console.SetCursorPosition(32, 11);
+                            Console.Write("OFF");
+                        }
+                        else
+                        {
+                            bolVolume = true;
+                            Console.SetCursorPosition(32, 11);
+                            Console.Write("ON ");
+                        }
+                        break;
+
+                    case 13:
+                        if (bytDifficulty == 1)
+                        {
+                            bytDifficulty = 2;
+                            Console.SetCursorPosition(32, 13);
+                            Console.Write("JEDI   ");
+                        }
+                        else
+                        {
+                            bytDifficulty = 1;
+                            Console.SetCursorPosition(32, 13);
+                            Console.Write("PADAWAN");
+                        }
+                        break;
+                }
+                break;
+
+            // If the player press the enter key
+            case ConsoleKey.Escape:
+                DisplayMenu();
+                break;
+        }
+    }
 }
 
 void SelectScore()
@@ -271,7 +405,40 @@ void SelectScore()
 
 void SelectAbout()
 {
+    // Verify variable
+    byte bytPositionYSettings = 11;
 
+    // Clear the console
+    Console.Clear();
+
+    // Change the color
+    Console.ForegroundColor = ConsoleColor.Green;
+
+    // Line break
+    Console.WriteLine();
+    Console.WriteLine();
+
+    // Title display
+    Console.WriteLine("\t  __   ____   __   _  _  ____");
+    Console.WriteLine("\t / _\\ (  _ \\ /  \\ / )( \\(_  _)");
+    Console.WriteLine("\t/    \\ ) _ ((  O )) \\/ (  )(");
+    Console.WriteLine("\t\\_/\\_/(____/ \\__/ \\____/ (__)");
+
+    Console.WriteLine("\n\n\tWe will tell you some informations about the game ! (In french)");
+
+    while (true)
+    {
+        switch (Console.ReadKey().Key)
+        {
+            // If the player press the up arrow
+            case ConsoleKey.Escape:
+                DisplayMenu();
+                break;
+        }
+        Console.SetCursorPosition(65, 9);
+        Console.WriteLine(" ");
+        Console.SetCursorPosition(65, 9);
+    }
 }
 
 void SelectExit()
