@@ -330,6 +330,12 @@ void SelectSettings()
         Console.SetCursorPosition(0, bytPositionYSettings);
         Console.Write("\t---->");
 
+        if (bytPositionYSettings == 11)
+        {
+            Console.SetCursorPosition(13, bytPositionYSettings);
+            Console.Write(" ");
+        }
+
         // Verify the key
         switch (Console.ReadKey().Key)
         {
@@ -338,14 +344,14 @@ void SelectSettings()
                 if (bytPositionYSettings == 11)
                 {
                     Console.SetCursorPosition(0, bytPositionYSettings);
-                    Console.Write("\t     ");
+                    Console.Write("\t      ");
                     bytPositionYSettings = 13;
                     break;
                 }
                 else
                 {
                     Console.SetCursorPosition(0, bytPositionYSettings);
-                    Console.Write("\t     ");
+                    Console.Write("\t      ");
                     bytPositionYSettings = 11;
                     break;
                 }
@@ -355,14 +361,14 @@ void SelectSettings()
                 if (bytPositionYSettings == 11)
                 {
                     Console.SetCursorPosition(0, bytPositionYSettings);
-                    Console.Write("\t     ");
+                    Console.Write("\t      ");
                     bytPositionYSettings = 13;
                     break;
                 }
                 else
                 {
                     Console.SetCursorPosition(0, bytPositionYSettings);
-                    Console.Write("\t     ");
+                    Console.Write("\t      ");
                     bytPositionYSettings = 11;
                     break;
                 }
@@ -491,9 +497,9 @@ void SelectAbout()
                 DisplayMenu();
                 break;
         }
-        Console.SetCursorPosition(65, 9);
+        Console.SetCursorPosition(0, 20);
         Console.WriteLine(" ");
-        Console.SetCursorPosition(65, 9);
+        Console.SetCursorPosition(0, 20);
     }
 }
 
