@@ -65,7 +65,7 @@ namespace Test
             bool success = true;
             try
             {
-                alien = new Alien(23, 1, true);
+                alien = new Alien(11, 1, 1, true);
                 success = false;
             }
             catch

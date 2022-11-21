@@ -1,11 +1,14 @@
 ﻿using System.Runtime.CompilerServices;
+using Classes;
 
 ///// Variable declaration /////
 
-byte bytPositionY = 15;      // Position Y of the arrow
-string strPlayerUsername;    // Username of the current player
-bool bolVolume = true;       // Volume of the music
-byte bytDifficulty = 1;      // Difficulty of the game
+byte bytPositionY = 15;           // Position Y of the arrow
+string strPlayerUsername = "";    // Username of the current player
+bool bolVolume = true;            // Volume of the music
+byte bytDifficulty = 1;           // Difficulty of the game
+byte bytPlayerLives = 3;          // Lives of the player
+int intPlayerScore = 0;           // Score of the player
 
 ///// Main code /////
 
@@ -257,22 +260,27 @@ void SelectUsername()
     Console.SetCursorPosition(23, 8);
 
     // Confirm the username
-    Console.Write("\n\tYour username is valid. Press Esc to go to the main menu.");
+    Console.Write("\n\tYour username is valid. \n\tPress Esc to go to the main menu or Enter to start the game.");
 
     // Verify if the player press Esc
     while (true)
     {
         switch (Console.ReadKey().Key)
         {
-            // If the player press the up arrow
+            // If the player press escape
             case ConsoleKey.Escape:
                 // Go to the menu
                 DisplayMenu();
                 break;
+            // If the player press enter
+            case ConsoleKey.Enter:
+                // Start the game
+                NewGame();
+                break;
         }
-        Console.SetCursorPosition(65, 9);
+        Console.SetCursorPosition(68, 10);
         Console.WriteLine(" ");
-        Console.SetCursorPosition(65, 9);
+        Console.SetCursorPosition(68, 10);
     }
 }
 
@@ -330,11 +338,9 @@ void SelectSettings()
         Console.SetCursorPosition(0, bytPositionYSettings);
         Console.Write("\t---->");
 
-        if (bytPositionYSettings == 11)
-        {
-            Console.SetCursorPosition(13, bytPositionYSettings);
-            Console.Write(" ");
-        }
+        // Can't write character
+        Console.SetCursorPosition(12, bytPositionYSettings);
+        Console.Write("");
 
         // Verify the key
         switch (Console.ReadKey().Key)
@@ -506,6 +512,7 @@ void SelectAbout()
 // Select exit
 void SelectExit()
 {
+    // Clear the console
     Console.Clear();
 
     // Line break
@@ -517,4 +524,50 @@ void SelectExit()
 
     // Close the programm
     Environment.Exit(0);
+}
+
+// New game
+void NewGame()
+{
+    // Clear the console
+    Console.Clear();
+
+    // Write the header
+    // Write username
+    Console.Write("\n\n\tUsername : ");
+    Console.Write(strPlayerUsername);
+
+    // Write lives
+    Console.Write("\t\tLives : ");
+
+    // for to write all the hearts
+    Console.ForegroundColor = ConsoleColor.Red;
+    for (byte x = 0; x < bytPlayerLives; x++)
+    {
+        Console.Write("♥");
+    }
+    Console.ForegroundColor = ConsoleColor.Green;
+
+    // Write score
+    Console.Write("\t\tScore : ");
+    Console.Write(intPlayerScore);
+
+    // Line break
+    Console.WriteLine("");
+    Console.WriteLine("");
+
+    // Capture the width of the console
+    int intConsoleWidth = Console.WindowWidth;
+
+    // Write "_" all the width
+    for (int x = 0; x < intConsoleWidth; x++)
+    {
+        Console.Write("_");
+    }
+
+    // Create aliens
+    for (byte x = 1; x < 10; x++)
+    {
+        Alien alien = new Alien(x, 1, 1, true);
+    }
 }
