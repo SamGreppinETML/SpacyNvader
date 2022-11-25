@@ -21,82 +21,91 @@ DisplayMenu();
 // Display the menu
 void DisplayMenu()
 {
-    // Boucle pour savoir quelle touche est appuyée
+    // Clear the console
+    Console.Clear();
+
+    // Position of the cursor at the start
+    Console.SetCursorPosition(0, 0);
+
+    // Change the color
+    Console.ForegroundColor = ConsoleColor.Green;
+
+    // Line break
+    Console.WriteLine();
+    Console.WriteLine();
+
+    // Title display
+    Console.WriteLine("\t  /$$$$$$            /$$                     /$$   /$$                           /$$");
+    Console.WriteLine("\t /$$__  $$          |__/                    | $$$ | $$                          | $$");
+    Console.WriteLine("\t| $$  \\__/  /$$$$$$  /$$  /$$$$$$$ /$$   /$$| $$$$| $$ /$$    /$$ /$$$$$$   /$$$$$$$  /$$$$$$   /$$$$$$");
+    Console.WriteLine("\t|  $$$$$$  /$$__  $$| $$ /$$_____/| $$  | $$| $$ $$ $$|  $$  /$$/|____  $$ /$$__  $$ /$$__  $$ /$$__  $$");
+    Console.WriteLine("\t \\____  $$| $$  \\ $$| $$| $$      | $$  | $$| $$  $$$$ \\  $$/$$/  /$$$$$$$| $$  | $$| $$$$$$$$| $$  \\__/");
+    Console.WriteLine("\t /$$  \\ $$| $$  | $$| $$| $$      | $$  | $$| $$\\  $$$  \\  $$$/  /$$__  $$| $$  | $$| $$_____/| $$");
+    Console.WriteLine("\t|  $$$$$$/| $$$$$$$/| $$|  $$$$$$$|  $$$$$$$| $$ \\  $$   \\  $/  |  $$$$$$$|  $$$$$$$|  $$$$$$$| $$");
+    Console.WriteLine("\t \\______/ | $$____/ |__/ \\_______/ \\____  $$|__/  \\__/    \\_/    \\_______/ \\_______/ \\_______/|__/");
+    Console.WriteLine("\t          | $$                     /$$  | $$");
+    Console.WriteLine("\t          | $$                    |  $$$$$$/");
+    Console.WriteLine("\t          |__/                     \\______/");
+
+    // Line break
+    Console.WriteLine();
+    Console.WriteLine();
+
+    // Play display
+    Console.WriteLine("\t\t\t ____  __     __   _  _");
+    Console.WriteLine("\t\t\t(  _ \\(  )   / _\\ ( \\/ )");
+    Console.WriteLine("\t\t\t ) __// (_/\\/    \\ )  /");
+    Console.WriteLine("\t\t\t(__)  \\____/\\_/\\_/(__/");
+
+    // Line break
+    Console.WriteLine();
+
+    // Settings display
+    Console.WriteLine("\t\t\t ____  ____  ____  ____  __  __ _   ___  ____");
+    Console.WriteLine("\t\t\t/ ___)(  __)(_  _)(_  _)(  )(  ( \\ / __)/ ___)");
+    Console.WriteLine("\t\t\t\\___ \\ ) _)   )(    )(   )( /    /( (_  \\___ \\");
+    Console.WriteLine("\t\t\t(____/(____) (__)  (__) (__)\\_)__) \\___/(____/");
+
+    // Line break
+    Console.WriteLine();
+
+    // Score display
+    Console.WriteLine("\t\t\t ____   ___  __  ____  ____");
+    Console.WriteLine("\t\t\t/ ___) / __)/  \\(  _ \\(  __)");
+    Console.WriteLine("\t\t\t\\___ \\( (__(  O ))   / ) _)");
+    Console.WriteLine("\t\t\t(____/ \\___)\\__/(__\\_)(____)");
+
+    // Line break
+    Console.WriteLine();
+
+    // About display
+    Console.WriteLine("\t\t\t  __   ____   __   _  _  ____");
+    Console.WriteLine("\t\t\t / _\\ (  _ \\ /  \\ / )( \\(_  _)");
+    Console.WriteLine("\t\t\t/    \\ ) _ ((  O )) \\/ (  )(");
+    Console.WriteLine("\t\t\t\\_/\\_/(____/ \\__/ \\____/ (__)");
+
+    // Line break
+    Console.WriteLine();
+
+    // Exit display
+    Console.WriteLine("\t\t\t ____  _  _  __  ____");
+    Console.WriteLine("\t\t\t(  __)( \\/ )(  )(_  _)");
+    Console.WriteLine("\t\t\t ) _)  )  (  )(   )(");
+    Console.WriteLine("\t\t\t(____)(_/\\_)(__) (__)");
+
+    // Retenue
+    byte bytPositionRetenue = 15;
+
+    // Boucle pour savoir la touche appuyée
     while (true)
     {
-        // Clear the console
-        Console.Clear();
-
-        // Position of the cursor at the start
-        Console.SetCursorPosition(0, 0);
-
-        // Change the color
-        Console.ForegroundColor = ConsoleColor.Green;
-
-        // Line break
-        Console.WriteLine();
-        Console.WriteLine();
-
-        // Title display
-        Console.WriteLine("\t  /$$$$$$            /$$                     /$$   /$$                           /$$");
-        Console.WriteLine("\t /$$__  $$          |__/                    | $$$ | $$                          | $$");
-        Console.WriteLine("\t| $$  \\__/  /$$$$$$  /$$  /$$$$$$$ /$$   /$$| $$$$| $$ /$$    /$$ /$$$$$$   /$$$$$$$  /$$$$$$   /$$$$$$");
-        Console.WriteLine("\t|  $$$$$$  /$$__  $$| $$ /$$_____/| $$  | $$| $$ $$ $$|  $$  /$$/|____  $$ /$$__  $$ /$$__  $$ /$$__  $$");
-        Console.WriteLine("\t \\____  $$| $$  \\ $$| $$| $$      | $$  | $$| $$  $$$$ \\  $$/$$/  /$$$$$$$| $$  | $$| $$$$$$$$| $$  \\__/");
-        Console.WriteLine("\t /$$  \\ $$| $$  | $$| $$| $$      | $$  | $$| $$\\  $$$  \\  $$$/  /$$__  $$| $$  | $$| $$_____/| $$");
-        Console.WriteLine("\t|  $$$$$$/| $$$$$$$/| $$|  $$$$$$$|  $$$$$$$| $$ \\  $$   \\  $/  |  $$$$$$$|  $$$$$$$|  $$$$$$$| $$");
-        Console.WriteLine("\t \\______/ | $$____/ |__/ \\_______/ \\____  $$|__/  \\__/    \\_/    \\_______/ \\_______/ \\_______/|__/");
-        Console.WriteLine("\t          | $$                     /$$  | $$");
-        Console.WriteLine("\t          | $$                    |  $$$$$$/");
-        Console.WriteLine("\t          |__/                     \\______/");
-
-        // Line break
-        Console.WriteLine();
-        Console.WriteLine();
-
-        // Play display
-        Console.WriteLine("\t\t\t ____  __     __   _  _");
-        Console.WriteLine("\t\t\t(  _ \\(  )   / _\\ ( \\/ )");
-        Console.WriteLine("\t\t\t ) __// (_/\\/    \\ )  /");
-        Console.WriteLine("\t\t\t(__)  \\____/\\_/\\_/(__/");
-
-        // Line break
-        Console.WriteLine();
-
-        // Settings display
-        Console.WriteLine("\t\t\t ____  ____  ____  ____  __  __ _   ___  ____");
-        Console.WriteLine("\t\t\t/ ___)(  __)(_  _)(_  _)(  )(  ( \\ / __)/ ___)");
-        Console.WriteLine("\t\t\t\\___ \\ ) _)   )(    )(   )( /    /( (_  \\___ \\");
-        Console.WriteLine("\t\t\t(____/(____) (__)  (__) (__)\\_)__) \\___/(____/");
-
-        // Line break
-        Console.WriteLine();
-
-        // Score display
-        Console.WriteLine("\t\t\t ____   ___  __  ____  ____");
-        Console.WriteLine("\t\t\t/ ___) / __)/  \\(  _ \\(  __)");
-        Console.WriteLine("\t\t\t\\___ \\( (__(  O ))   / ) _)");
-        Console.WriteLine("\t\t\t(____/ \\___)\\__/(__\\_)(____)");
-
-        // Line break
-        Console.WriteLine();
-
-        // About display
-        Console.WriteLine("\t\t\t  __   ____   __   _  _  ____");
-        Console.WriteLine("\t\t\t / _\\ (  _ \\ /  \\ / )( \\(_  _)");
-        Console.WriteLine("\t\t\t/    \\ ) _ ((  O )) \\/ (  )(");
-        Console.WriteLine("\t\t\t\\_/\\_/(____/ \\__/ \\____/ (__)");
-
-        // Line break
-        Console.WriteLine();
-
-        // Exit display
-        Console.WriteLine("\t\t\t ____  _  _  __  ____");
-        Console.WriteLine("\t\t\t(  __)( \\/ )(  )(_  _)");
-        Console.WriteLine("\t\t\t ) _)  )  (  )(   )(");
-        Console.WriteLine("\t\t\t(____)(_/\\_)(__) (__)");
-
-
+        // Arrow delete
+        Console.SetCursorPosition(0, bytPositionRetenue);
+        Console.WriteLine("\t            ");
+        Console.WriteLine("\t             ");
+        Console.WriteLine("\t              ");
+        Console.WriteLine("\t             ");
+        Console.WriteLine(" ");
 
         // Arrow display
         Console.SetCursorPosition(0, bytPositionY);
@@ -105,8 +114,6 @@ void DisplayMenu()
         Console.WriteLine("\t|_________   >");
         Console.WriteLine("\t          /_/");
 
-
-
         // Verify the key
         switch (Console.ReadKey().Key)
         {
@@ -114,11 +121,13 @@ void DisplayMenu()
             case ConsoleKey.UpArrow:
                 if (bytPositionY == 15)
                 {
+                    bytPositionRetenue = bytPositionY;
                     bytPositionY += 20;
                     break;
                 }
                 else
                 {
+                    bytPositionRetenue = bytPositionY;
                     bytPositionY -= 5;
                     break;
                 }
@@ -127,11 +136,13 @@ void DisplayMenu()
             case ConsoleKey.DownArrow:
                 if (bytPositionY == 35)
                 {
+                    bytPositionRetenue = bytPositionY;
                     bytPositionY -= 20;
                     break;
                 }
                 else
                 {
+                    bytPositionRetenue = bytPositionY;
                     bytPositionY += 5;
                     break;
                 }
@@ -173,6 +184,10 @@ void DisplayMenu()
                 }
                 break;
         }
+
+        // Delete character
+        Console.SetCursorPosition(0, bytPositionY + 4);
+        Console.Write(" ");
     }
 }
 
@@ -296,7 +311,7 @@ void SelectSettings()
     // Change the color
     Console.ForegroundColor = ConsoleColor.Green;
 
-    // Line break
+    // Line breaks
     Console.WriteLine();
     Console.WriteLine();
 
@@ -566,7 +581,7 @@ void NewGame()
     }
 
     // Create aliens
-    for (byte x = 1; x < 10; x++)
+    for (byte x = 0; x < 10; x++)
     {
         Alien alien = new Alien(x, 1, 1, true);
     }
