@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using Classes;
+using System.Threading;
 
 ///// Variable declaration /////
 
@@ -618,4 +619,30 @@ void NewGame()
         Console.SetCursorPosition(alien.LocationX, alien.LocationY+4);
         Console.WriteLine(" ▄▀     ▀▄");
     }
+
+    // Display ship
+    Console.SetCursorPosition(Console.WindowWidth/2, Console.WindowHeight - 8);
+    Console.WriteLine("    █    ");
+    Console.SetCursorPosition(Console.WindowWidth / 2, Console.WindowHeight - 7);
+    Console.WriteLine("  █████  ");
+    Console.SetCursorPosition(Console.WindowWidth / 2, Console.WindowHeight - 6);
+    Console.WriteLine("█████████");
+    Console.SetCursorPosition(Console.WindowWidth / 2, Console.WindowHeight - 5);
+    Console.WriteLine("█████████");
+
+    /*
+    while(true)
+    {
+        Console.MoveBufferArea(listAliveAliens[0].LocationX, listAliveAliens[0].LocationY, 154, 12, listAliveAliens[0].LocationX + 1, listAliveAliens[0].LocationY);
+        listAliveAliens[0].LocationX += 1;
+        Thread.Sleep(1000);
+    }
+    */
+
+    Timer timer = new Timer(new TimerCallback(MoveAliens));
+}
+
+void MoveAliens(object state)
+{
+    Console.WriteLine("GLOUGLOU");
 }
