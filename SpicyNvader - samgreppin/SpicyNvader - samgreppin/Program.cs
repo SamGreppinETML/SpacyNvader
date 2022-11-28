@@ -115,7 +115,7 @@ void DisplayMenu()
         Console.WriteLine("\t          /_/");
 
         // Verify the key
-        switch (Console.ReadKey().Key)
+        switch (Console.ReadKey(true).Key)
         {
             // If the player press the up arrow
             case ConsoleKey.UpArrow:
@@ -184,10 +184,6 @@ void DisplayMenu()
                 }
                 break;
         }
-
-        // Delete character
-        Console.SetCursorPosition(0, bytPositionY + 4);
-        Console.Write(" ");
     }
 }
 
@@ -544,6 +540,9 @@ void SelectExit()
 // New game
 void NewGame()
 {
+    // Alien list
+    List<Alien> listAliveAliens = new List<Alien>();
+
     // Clear the console
     Console.Clear();
 
@@ -580,9 +579,43 @@ void NewGame()
         Console.Write("_");
     }
 
+    // locationX of aliens
+    byte bytLocationX = 2;
+
     // Create aliens
     for (byte x = 0; x < 10; x++)
     {
-        Alien alien = new Alien(x, 1, 1, true);
+        if (x < 5)
+        {
+            Alien alien = new Alien(x, bytLocationX, 6, true);
+            listAliveAliens.Add(alien);
+            bytLocationX += 14;
+            
+            if (x == 4)
+            {
+                bytLocationX = 2;
+            }
+        }
+        else
+        {
+            Alien alien = new Alien(x, bytLocationX, 12, true);
+            listAliveAliens.Add(alien);
+            bytLocationX += 14;
+        }
+    }
+
+    // Display Aliens
+    foreach (Alien alien in listAliveAliens)
+    {
+        Console.SetCursorPosition(alien.LocationX, alien.LocationY);
+        Console.WriteLine("▄ ▀▄   ▄▀ ▄");
+        Console.SetCursorPosition(alien.LocationX, alien.LocationY+1);
+        Console.WriteLine("█▄███████▄█");
+        Console.SetCursorPosition(alien.LocationX, alien.LocationY+2);
+        Console.WriteLine("███▄███▄███");
+        Console.SetCursorPosition(alien.LocationX, alien.LocationY+3);
+        Console.WriteLine("▀█████████▀");
+        Console.SetCursorPosition(alien.LocationX, alien.LocationY+4);
+        Console.WriteLine(" ▄▀     ▀▄");
     }
 }
