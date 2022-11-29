@@ -4,12 +4,14 @@ using System.Threading;
 
 ///// Variable declaration /////
 
-byte bytPositionY = 15;           // Position Y of the arrow
-string strPlayerUsername = "";    // Username of the current player
-bool bolVolume = true;            // Volume of the music
-byte bytDifficulty = 1;           // Difficulty of the game
-byte bytPlayerLives = 3;          // Lives of the player
-int intPlayerScore = 0;           // Score of the player
+byte bytPositionY = 15;                                             // Position Y of the arrow
+string strPlayerUsername = "";                                      // Username of the current player
+bool bolVolume = true;                                              // Volume of the music
+byte bytDifficulty = 1;                                             // Difficulty of the game
+byte bytPlayerLives = 3;                                            // Lives of the player
+int intPlayerScore = 0;                                             // Score of the player
+List<Alien> listAliveAliens = new List<Alien>();                    // Alien list
+byte bytPlayerLocation = Convert.ToByte(Console.WindowWidth / 2);   // Default player locyation
 
 ///// Main code /////
 
@@ -541,9 +543,6 @@ void SelectExit()
 // New game
 void NewGame()
 {
-    // Alien list
-    List<Alien> listAliveAliens = new List<Alien>();
-
     // Clear the console
     Console.Clear();
 
@@ -591,7 +590,7 @@ void NewGame()
             Alien alien = new Alien(x, bytLocationX, 6, true);
             listAliveAliens.Add(alien);
             bytLocationX += 14;
-            
+
             if (x == 4)
             {
                 bytLocationX = 2;
@@ -610,18 +609,18 @@ void NewGame()
     {
         Console.SetCursorPosition(alien.LocationX, alien.LocationY);
         Console.WriteLine("▄ ▀▄   ▄▀ ▄");
-        Console.SetCursorPosition(alien.LocationX, alien.LocationY+1);
+        Console.SetCursorPosition(alien.LocationX, alien.LocationY + 1);
         Console.WriteLine("█▄███████▄█");
-        Console.SetCursorPosition(alien.LocationX, alien.LocationY+2);
+        Console.SetCursorPosition(alien.LocationX, alien.LocationY + 2);
         Console.WriteLine("███▄███▄███");
-        Console.SetCursorPosition(alien.LocationX, alien.LocationY+3);
+        Console.SetCursorPosition(alien.LocationX, alien.LocationY + 3);
         Console.WriteLine("▀█████████▀");
-        Console.SetCursorPosition(alien.LocationX, alien.LocationY+4);
+        Console.SetCursorPosition(alien.LocationX, alien.LocationY + 4);
         Console.WriteLine(" ▄▀     ▀▄");
     }
 
     // Display ship
-    Console.SetCursorPosition(Console.WindowWidth/2, Console.WindowHeight - 8);
+    Console.SetCursorPosition(Console.WindowWidth / 2, Console.WindowHeight - 8);
     Console.WriteLine("    █    ");
     Console.SetCursorPosition(Console.WindowWidth / 2, Console.WindowHeight - 7);
     Console.WriteLine("  █████  ");
@@ -630,19 +629,60 @@ void NewGame()
     Console.SetCursorPosition(Console.WindowWidth / 2, Console.WindowHeight - 5);
     Console.WriteLine("█████████");
 
-    /*
-    while(true)
-    {
-        Console.MoveBufferArea(listAliveAliens[0].LocationX, listAliveAliens[0].LocationY, 154, 12, listAliveAliens[0].LocationX + 1, listAliveAliens[0].LocationY);
-        listAliveAliens[0].LocationX += 1;
-        Thread.Sleep(1000);
-    }
-    */
-
+    // Timer to do a break between alien moves
     Timer timer = new Timer(new TimerCallback(MoveAliens));
+    timer.Change(0, 200);
+
+    // Move the player
+    MovePlayer();
 }
 
 void MoveAliens(object state)
 {
-    Console.WriteLine("GLOUGLOU");
+    // Counter
+    byte bytCompteur = 0;
+
+    // Move aliens
+    foreach (Alien aliens in listAliveAliens)
+    {
+         Console.MoveBufferArea(listAliveAliens[bytCompteur].LocationX, listAliveAliens[bytCompteur].LocationY, 12, 5, listAliveAliens[bytCompteur].LocationX + 2, listAliveAliens[bytCompteur].LocationY);
+        listAliveAliens[bytCompteur].LocationX += 2;
+        bytCompteur += 1;
+    }
+}
+
+void MovePlayer()
+{
+    while (true)
+    {
+        switch (Console.ReadKey().Key)
+        {
+            // If the player press the up arrow
+            case ConsoleKey.LeftArrow:
+                if (bytPlayerLocation <= 1)
+                {
+                    break;
+                }
+                else
+                {
+                    Console.MoveBufferArea(bytPlayerLocation, Console.WindowHeight - 8, 12, 4, bytPlayerLocation - 1, Console.WindowHeight - 8);
+                    // Change the location of the player
+                    bytPlayerLocation -= 1;
+                    break;
+                }
+
+            case ConsoleKey.RightArrow:
+                if (bytPlayerLocation >= Console.WindowWidth - 12)
+                {
+                    break;
+                }
+                else
+                {
+                    Console.MoveBufferArea(bytPlayerLocation, Console.WindowHeight - 8, 12, 4, bytPlayerLocation + 1, Console.WindowHeight - 8);
+                    // Change the location of the player
+                    bytPlayerLocation += 1;
+                    break;
+                }
+        }
+    }
 }
