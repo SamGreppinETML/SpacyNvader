@@ -642,7 +642,7 @@ void MoveAliens(object state)
     // Move aliens
     foreach (Alien aliens in listAliveAliens)
     {
-        if ()
+        if (aliens.LocationX < INTLARGEUR - 9)
         {
             Console.MoveBufferArea(listAliveAliens[bytCompteur].LocationX, listAliveAliens[bytCompteur].LocationY, 12, 5, listAliveAliens[bytCompteur].LocationX + 2, listAliveAliens[bytCompteur].LocationY);
             listAliveAliens[bytCompteur].LocationX += 2;
