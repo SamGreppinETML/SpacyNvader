@@ -11,7 +11,6 @@ byte bytDifficulty = 1;                                             // Difficult
 byte bytPlayerLives = 3;                                            // Lives of the player
 int intPlayerScore = 0;                                             // Score of the player
 List<Alien> listAliveAliens = new List<Alien>();                    // Alien list
-byte bytPlayerLocation = Convert.ToByte(Console.WindowWidth / 2);   // Default player locyation
 
 ///// Main code /////
 
@@ -630,8 +629,8 @@ void NewGame()
     Console.WriteLine("█████████");
 
     // Timer to do a break between alien moves
-    Timer timer = new Timer(new TimerCallback(MoveAliens));
-    timer.Change(0, 200);
+    //Timer timer = new Timer(new TimerCallback(MoveAliens));
+    //timer.Change(0, 200);
 
     // Move the player
     MovePlayer();
@@ -653,36 +652,32 @@ void MoveAliens(object state)
 
 void MovePlayer()
 {
+    byte bytPlayerLocation = Convert.ToByte(Console.WindowWidth / 2);   // Default player locyation
+
     while (true)
     {
+        // Thread.Sleep(1);
+
         switch (Console.ReadKey().Key)
         {
             // If the player press the up arrow
             case ConsoleKey.LeftArrow:
-                if (bytPlayerLocation <= 1)
+                if (bytPlayerLocation >= 2)
                 {
-                    break;
-                }
-                else
-                {
-                    Console.MoveBufferArea(bytPlayerLocation, Console.WindowHeight - 8, 12, 4, bytPlayerLocation - 1, Console.WindowHeight - 8);
+                    Console.MoveBufferArea(bytPlayerLocation, Console.WindowHeight - 8, 9, 4, bytPlayerLocation - 1, Console.WindowHeight - 8);
                     // Change the location of the player
                     bytPlayerLocation -= 1;
-                    break;
                 }
+                break;
 
             case ConsoleKey.RightArrow:
-                if (bytPlayerLocation >= Console.WindowWidth - 12)
+                if (bytPlayerLocation <= Console.WindowWidth - 11)
                 {
-                    break;
-                }
-                else
-                {
-                    Console.MoveBufferArea(bytPlayerLocation, Console.WindowHeight - 8, 12, 4, bytPlayerLocation + 1, Console.WindowHeight - 8);
+                    Console.MoveBufferArea(bytPlayerLocation, Console.WindowHeight - 8, 9, 4, bytPlayerLocation + 1, Console.WindowHeight - 8);
                     // Change the location of the player
                     bytPlayerLocation += 1;
-                    break;
                 }
+                break;
         }
     }
 }
