@@ -10,8 +10,10 @@ bool bolVolume = true;                                              // Volume of
 byte bytDifficulty = 1;                                             // Difficulty of the game
 byte bytPlayerLives = 3;                                            // Lives of the player
 int intPlayerScore = 0;                                             // Score of the player
-const int INTLARGEUR = 200;
+const int INTLARGEUR = 200;                                         // Width of the game
 List<Alien> listAliveAliens = new List<Alien>();                    // Alien list
+bool advance = false;
+string direction = "right";
 
 ///// Main code /////
 
@@ -636,21 +638,60 @@ void NewGame()
 
 void MoveAliens(object state)
 {
-    // Counter
-    byte bytCompteur = 0;
-
     // Move aliens
     foreach (Alien aliens in listAliveAliens)
     {
-        if (aliens.LocationX < INTLARGEUR - 9)
+        if (direction == "right")
         {
-            Console.MoveBufferArea(listAliveAliens[bytCompteur].LocationX, listAliveAliens[bytCompteur].LocationY, 12, 5, listAliveAliens[bytCompteur].LocationX + 2, listAliveAliens[bytCompteur].LocationY);
-            listAliveAliens[bytCompteur].LocationX += 2;
-            bytCompteur += 1;
+            if (aliens.LocationX >= INTLARGEUR - 9)
+            {
+                advance = true;
+            }
         }
-        else
+        else if (direction == "left")
         {
+            if (aliens.LocationX <= 2)
+            {
+                advance = true;
+            }
+        }
+    }
 
+    if (advance)
+    {
+        foreach (Alien aliens in listAliveAliens)
+        {
+            Console.MoveBufferArea(alien.LocationX, alien.LocationY, 12, 5, alien.LocationX, alien.LocationY + 2);
+            aliens.LocationY += 2;
+        }
+
+        if (direction == "right")
+        {
+            direction = "left";
+        }
+        else if (direction == "left")
+        {
+            direction = "right";
+        }
+    }
+    else
+    {
+        if (direction == "right")
+        {
+            foreach (Alien alien in listAliveAliens)
+            {
+                Console.MoveBufferArea(alien.LocationX, alien.LocationY, 12, 5, alien.LocationX + 2, alien.LocationY);
+                alien.LocationX += 2;
+            }
+
+        }
+        else if (direction == "left")
+        {
+            foreach (Alien alien in listAliveAliens)
+            {
+                Console.MoveBufferArea(alien.LocationX, alien.LocationY, 12, 5, alien.LocationX - 2, alien.LocationY);
+                alien.LocationX -= 2;
+            }
         }
     }
 }
