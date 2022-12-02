@@ -586,7 +586,7 @@ void NewGame()
     {
         if (x < 5)
         {
-            Alien alien = new Alien(x, bytLocationX, 6, true);
+            Alien alien = new Alien(x, bytLocationX, 12, true);
             listAliveAliens.Add(alien);
             bytLocationX += 14;
 
@@ -597,7 +597,7 @@ void NewGame()
         }
         else
         {
-            Alien alien = new Alien(x, bytLocationX, 12, true);
+            Alien alien = new Alien(x, bytLocationX, 6, true);
             listAliveAliens.Add(alien);
             bytLocationX += 14;
         }
@@ -643,7 +643,7 @@ void MoveAliens(object state)
     {
         if (direction == "right")
         {
-            if (aliens.LocationX >= INTLARGEUR - 9)
+            if (aliens.LocationX >= INTLARGEUR - 13)
             {
                 advance = true;
             }
@@ -661,8 +661,8 @@ void MoveAliens(object state)
     {
         foreach (Alien aliens in listAliveAliens)
         {
-            Console.MoveBufferArea(alien.LocationX, alien.LocationY, 12, 5, alien.LocationX, alien.LocationY + 2);
-            aliens.LocationY += 2;
+            Console.MoveBufferArea(aliens.LocationX, aliens.LocationY, 12, 5, aliens.LocationX, aliens.LocationY + 3);
+            aliens.LocationY += 3;
         }
 
         if (direction == "right")
@@ -673,6 +673,8 @@ void MoveAliens(object state)
         {
             direction = "right";
         }
+
+        advance = false;
     }
     else
     {
