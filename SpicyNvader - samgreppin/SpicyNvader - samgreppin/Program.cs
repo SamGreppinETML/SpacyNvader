@@ -15,6 +15,8 @@ List<Alien> listAliveAliens = new List<Alien>();                    // Alien lis
 bool advance = false;
 string direction = "right";
 
+Player player = new Player("x", 0);
+
 ///// Main code /////
 
 // Open the Window full size
@@ -242,11 +244,11 @@ void SelectUsername()
         Console.SetCursorPosition(23, 8);
         chrVerify = 'y';
         // Read the username and put it in the variable
-        strPlayerUsername = Console.ReadLine();
+        player.Name = Console.ReadLine();
 
         // Check the length of the username
         // If it's shorter than 3 characters
-        if (strPlayerUsername.Length < 3)
+        if (player.Name.Length < 3)
         {
             // Put 's' in chrVerify
             chrVerify = 's';
@@ -254,7 +256,7 @@ void SelectUsername()
         else
         {
             // If it's longer than 20 characters
-            if (strPlayerUsername.Length > 20)
+            if (player.Name.Length > 20)
             {
                 // Put 'l' in chrVerify
                 chrVerify = 'l';
@@ -641,18 +643,25 @@ void MoveAliens(object state)
     // Move aliens
     foreach (Alien aliens in listAliveAliens)
     {
-        if (direction == "right")
+        if (aliens.LocationY == 60)
         {
-            if (aliens.LocationX >= INTLARGEUR - 13)
-            {
-                advance = true;
-            }
+
         }
-        else if (direction == "left")
+        else
         {
-            if (aliens.LocationX <= 2)
+            if (direction == "right")
             {
-                advance = true;
+                if (aliens.LocationX >= INTLARGEUR - 13)
+                {
+                    advance = true;
+                }
+            }
+            else if (direction == "left")
+            {
+                if (aliens.LocationX <= 2)
+                {
+                    advance = true;
+                }
             }
         }
     }
@@ -728,4 +737,9 @@ void MovePlayer()
                 break;
         }
     }
+}
+
+void GameOver()
+{
+    Console.Clear();
 }
