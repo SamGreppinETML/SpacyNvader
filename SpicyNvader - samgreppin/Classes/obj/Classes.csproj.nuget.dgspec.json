@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\samgreppin\\Documents\\GitHub\\SpacyNvader\\SpicyNvader - samgreppin\\Classes\\Classes.csproj": {}
+    "C:\\Users\\samgreppin\\Desktop\\SpacyNvader\\SpicyNvader - samgreppin\\Classes\\Classes.csproj": {}
   },
   "projects": {
-    "C:\\Users\\samgreppin\\Documents\\GitHub\\SpacyNvader\\SpicyNvader - samgreppin\\Classes\\Classes.csproj": {
+    "C:\\Users\\samgreppin\\Desktop\\SpacyNvader\\SpicyNvader - samgreppin\\Classes\\Classes.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\samgreppin\\Documents\\GitHub\\SpacyNvader\\SpicyNvader - samgreppin\\Classes\\Classes.csproj",
+        "projectUniqueName": "C:\\Users\\samgreppin\\Desktop\\SpacyNvader\\SpicyNvader - samgreppin\\Classes\\Classes.csproj",
         "projectName": "Classes",
-        "projectPath": "C:\\Users\\samgreppin\\Documents\\GitHub\\SpacyNvader\\SpicyNvader - samgreppin\\Classes\\Classes.csproj",
+        "projectPath": "C:\\Users\\samgreppin\\Desktop\\SpacyNvader\\SpicyNvader - samgreppin\\Classes\\Classes.csproj",
         "packagesPath": "C:\\Users\\samgreppin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\samgreppin\\Documents\\GitHub\\SpacyNvader\\SpicyNvader - samgreppin\\Classes\\obj\\",
+        "outputPath": "C:\\Users\\samgreppin\\Desktop\\SpacyNvader\\SpicyNvader - samgreppin\\Classes\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

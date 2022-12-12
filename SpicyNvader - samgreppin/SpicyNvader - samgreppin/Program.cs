@@ -4,18 +4,16 @@ using System.Threading;
 
 ///// Variable declaration /////
 
-byte bytPositionY = 15;                                             // Position Y of the arrow
-string strPlayerUsername = "";                                      // Username of the current player
-bool bolVolume = true;                                              // Volume of the music
-byte bytDifficulty = 1;                                             // Difficulty of the game
-byte bytPlayerLives = 3;                                            // Lives of the player
-int intPlayerScore = 0;                                             // Score of the player
-const int INTLARGEUR = 200;                                         // Width of the game
-List<Alien> listAliveAliens = new List<Alien>();                    // Alien list
-bool advance = false;
-string direction = "right";
-
-Player player = new Player("x", 0);
+byte bytPositionY = 15;                                                     // Position Y of the arrow
+bool bolVolume = true;                                                      // Volume of the music
+byte bytDifficulty = 1;                                                     // Difficulty of the game
+const int INTLARGEUR = 200;                                                 // Width of the game
+List<Alien> listAliveAliens = new List<Alien>();                            // Alien list
+bool advance = false;                                                       // Advance of the aliens
+string direction = "right";                                                 // Direction of the aliens
+Player player = new Player("x", 0);                                         // Creation of the player
+Ship ship = new Ship(INTLARGEUR / 2, 1, 3, true);                           // Creation of the ship
+Shot shot = new Shot(ship.LocationX + 4, Console.WindowHeight - 9, true);   // Creation of a missile
 
 ///// Main code /////
 
@@ -479,9 +477,6 @@ void SelectScore()
 // Select about
 void SelectAbout()
 {
-    // Verify variable
-    byte bytPositionYSettings = 11;
-
     // Clear the console
     Console.Clear();
 
@@ -553,14 +548,14 @@ void NewGame()
     // Write the header
     // Write username
     Console.Write("\n\n\tUsername : ");
-    Console.Write(strPlayerUsername);
+    Console.Write(player.Name);
 
     // Write lives
     Console.Write("\t\tLives : ");
 
     // for to write all the hearts
     Console.ForegroundColor = ConsoleColor.Red;
-    for (byte x = 0; x < bytPlayerLives; x++)
+    for (byte x = 0; x < ship.Health; x++)
     {
         Console.Write("♥");
     }
@@ -568,7 +563,7 @@ void NewGame()
 
     // Write score
     Console.Write("\t\tScore : ");
-    Console.Write(intPlayerScore);
+    Console.Write(player.Score);
 
     // Line break
     Console.WriteLine("");
@@ -631,11 +626,43 @@ void NewGame()
     Console.WriteLine("█████████");
 
     // Timer to do a break between alien moves
-    Timer timer = new Timer(new TimerCallback(MoveAliens));
-    timer.Change(0, 200);
+    Timer moveTimer = new Timer(new TimerCallback(MoveAliens));
+    moveTimer.Change(0, 200);
 
-    // Move the player
-    MovePlayer();
+    // Shot
+    while (true)
+    {
+        switch (Console.ReadKey(true).Key)
+        {
+            case ConsoleKey.Spacebar:
+                if (shot.Shooting)
+                {
+                    shot.LocationX = ship.LocationX + 4;
+                    Timer shotTimer = new Timer(new TimerCallback(ShotPlayer));
+                    shotTimer.Change(0, 100);
+                }
+                break;
+
+            // If the player press the left arrow
+            case ConsoleKey.LeftArrow:
+                if (ship.LocationX > 1)
+                {
+                    Console.MoveBufferArea(ship.LocationX, Console.WindowHeight - 8, 9, 4, ship.LocationX - 1, Console.WindowHeight - 8);
+                    // Change the location of the player
+                    ship.LocationX -= 1;
+                }
+                break;
+
+            case ConsoleKey.RightArrow:
+                if (ship.LocationX < INTLARGEUR - 10)
+                {
+                    Console.MoveBufferArea(ship.LocationX, Console.WindowHeight - 8, 9, 4, ship.LocationX + 1, Console.WindowHeight - 8);
+                    // Change the location of the player
+                    ship.LocationX += 1;
+                }
+                break;
+        }
+    }
 }
 
 void MoveAliens(object state)
@@ -707,39 +734,19 @@ void MoveAliens(object state)
     }
 }
 
-void MovePlayer()
+void ShotPlayer(object state)
 {
-    byte bytPlayerLocation = INTLARGEUR/2;   // Default player locyation
+    shot.Shooting = false;
 
-    while (true)
-    {
-        // Thread.Sleep(1);
-
-        switch (Console.ReadKey(true).Key)
-        {
-            // If the player press the up arrow
-            case ConsoleKey.LeftArrow:
-                if (bytPlayerLocation > 1)
-                {
-                    Console.MoveBufferArea(bytPlayerLocation, Console.WindowHeight - 8, 9, 4, bytPlayerLocation - 1, Console.WindowHeight - 8);
-                    // Change the location of the player
-                    bytPlayerLocation -= 1;
-                }
-                break;
-
-            case ConsoleKey.RightArrow:
-                if (bytPlayerLocation < INTLARGEUR - 10)
-                {
-                    Console.MoveBufferArea(bytPlayerLocation, Console.WindowHeight - 8, 9, 4, bytPlayerLocation + 1, Console.WindowHeight - 8);
-                    // Change the location of the player
-                    bytPlayerLocation += 1;
-                }
-                break;
-        }
-    }
+    // Creation of a missile
+    Console.SetCursorPosition(shot.LocationX, shot.LocationY);
+    Console.Write("|");
+    Console.MoveBufferArea(shot.LocationX, shot.LocationY, 1, 1, shot.LocationX, shot.LocationY-1);
+    shot.LocationY -= 1;
 }
 
 void GameOver()
 {
     Console.Clear();
+
 }
