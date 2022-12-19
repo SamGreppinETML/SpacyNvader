@@ -1,6 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using Classes;
 using System.Threading;
+using WMPLib;
 
 ///// Variable declaration /////
 
@@ -9,16 +10,22 @@ bool bolVolume = true;                                                      // V
 byte bytDifficulty = 1;                                                     // Difficulty of the game
 const int INTLARGEUR = 200;                                                 // Width of the game
 List<Alien> listAliveAliens = new List<Alien>();                            // Alien list
+List<Shot> listShot = new List<Shot>();                                     // Shot list
 bool advance = false;                                                       // Advance of the aliens
 string direction = "right";                                                 // Direction of the aliens
 Player player = new Player("x", 0);                                         // Creation of the player
 Ship ship = new Ship(INTLARGEUR / 2, 1, 3, true);                           // Creation of the ship
-Shot shot = new Shot(ship.LocationX + 4, Console.WindowHeight - 9, true);   // Creation of a missile
+Shot shot = new Shot(ship.LocationX + 4, Console.WindowHeight - 9);         // Creation of a missile
 
 ///// Main code /////
 
 // Open the Window full size
 Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
+
+// Play Music
+WindowsMediaPlayer wMPPlayer = new WindowsMediaPlayer();
+Directory.SetCurrentDirectory(@"..\..\..\bin\Debug\net6.0\");
+wMPPlayer.URL = Directory.GetCurrentDirectory() + @"\chad.mp3";
 
 // Call DisplayMenu()
 DisplayMenu();
@@ -616,7 +623,7 @@ void NewGame()
     }
 
     // Display ship
-    Console.SetCursorPosition(INTLARGEUR/2, Console.WindowHeight - 8);
+    Console.SetCursorPosition(INTLARGEUR / 2, Console.WindowHeight - 8);
     Console.WriteLine("    █    ");
     Console.SetCursorPosition(INTLARGEUR / 2, Console.WindowHeight - 7);
     Console.WriteLine("  █████  ");
@@ -629,18 +636,21 @@ void NewGame()
     Timer moveTimer = new Timer(new TimerCallback(MoveAliens));
     moveTimer.Change(0, 200);
 
+    // Timer to do a break between alien moves
+    Timer shotTimer = new Timer(new TimerCallback(ShotPlayer));
+    shotTimer.Change(0, 80);
+
     // Shot
     while (true)
     {
         switch (Console.ReadKey(true).Key)
         {
             case ConsoleKey.Spacebar:
-                if (shot.Shooting)
-                {
-                    shot.LocationX = ship.LocationX + 4;
-                    Timer shotTimer = new Timer(new TimerCallback(ShotPlayer));
-                    shotTimer.Change(0, 100);
-                }
+                Shot shot = new Shot(ship.LocationX + 4, 53);
+                listShot.Add(shot);
+
+                Console.SetCursorPosition(shot.LocationX, shot.LocationY);
+                Console.Write("|");
                 break;
 
             // If the player press the left arrow
@@ -736,13 +746,20 @@ void MoveAliens(object state)
 
 void ShotPlayer(object state)
 {
-    shot.Shooting = false;
-
-    // Creation of a missile
-    Console.SetCursorPosition(shot.LocationX, shot.LocationY);
-    Console.Write("|");
-    Console.MoveBufferArea(shot.LocationX, shot.LocationY, 1, 1, shot.LocationX, shot.LocationY-1);
-    shot.LocationY -= 1;
+    if (listShot.Count > 0)
+    {
+        foreach (Shot shot in listShot.ToArray())
+        {
+            shot.LocationY -= 1;
+            Console.MoveBufferArea(shot.LocationX, shot.LocationY + 1, 1, 1, shot.LocationX, shot.LocationY);
+            if (shot.LocationY < 7)
+            {
+                Console.SetCursorPosition(shot.LocationX, shot.LocationY);
+                Console.Write(" ");
+                listShot.RemoveAt(0);
+            }
+        }
+    }
 }
 
 void GameOver()
