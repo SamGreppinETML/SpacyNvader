@@ -650,7 +650,9 @@ void NewGame()
                 listShot.Add(shot);
 
                 Console.SetCursorPosition(shot.LocationX, shot.LocationY);
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write("|");
+                Console.ForegroundColor = ConsoleColor.Green;
                 break;
 
             // If the player press the left arrow
@@ -757,6 +759,34 @@ void ShotPlayer(object state)
                 Console.SetCursorPosition(shot.LocationX, shot.LocationY);
                 Console.Write(" ");
                 listShot.RemoveAt(0);
+            }
+
+            foreach (Alien alien in listAliveAliens)
+            {
+                if (shot.LocationX > alien.LocationX && shot.LocationX < alien.LocationX + 12 && shot.LocationY > alien.LocationY && shot.LocationY < alien.LocationY + 5)
+                {
+                    // Delete Alien
+                    Console.SetCursorPosition(alien.LocationX, alien.LocationY);
+                    Console.Write("            ");
+                    Console.SetCursorPosition(alien.LocationX, alien.LocationY+1);
+                    Console.Write("            ");
+                    Console.SetCursorPosition(alien.LocationX, alien.LocationY+2);
+                    Console.Write("            ");
+                    Console.SetCursorPosition(alien.LocationX, alien.LocationY+3);
+                    Console.Write("            ");
+                    Console.SetCursorPosition(alien.LocationX, alien.LocationY+4);
+                    Console.Write("            ");
+                    Console.SetCursorPosition(alien.LocationX, alien.LocationY+5);
+                    Console.Write("            ");
+                    listAliveAliens.Remove(alien);
+
+                    // Delete Shot
+                    Console.SetCursorPosition(shot.LocationX, shot.LocationY);
+                    Console.Write(" ");
+                    listShot.RemoveAt(0);
+
+                    break;
+                }
             }
         }
     }
