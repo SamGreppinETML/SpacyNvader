@@ -14,7 +14,7 @@ List<Shot> listShot = new List<Shot>();                                     // S
 bool advance = false;                                                       // Advance of the aliens
 string direction = "right";                                                 // Direction of the aliens
 Player player = new Player("x", 0);                                         // Creation of the player
-Ship ship = new Ship(INTLARGEUR / 2, 1, 3, true);                           // Creation of the ship
+Ship ship= new Ship(INTLARGEUR / 2, Console.WindowHeight - 8, 3, true);     // Creation of the ship
 Shot shot = new Shot(ship.LocationX + 4, Console.WindowHeight - 9);         // Creation of a missile
 
 ///// Main code /////
@@ -554,11 +554,13 @@ void NewGame()
 
     // Write the header
     // Write username
-    Console.Write("\n\n\tUsername : ");
+    Console.SetCursorPosition(4, 2);
+    Console.Write("Username : ");
     Console.Write(player.Name);
 
     // Write lives
-    Console.Write("\t\tLives : ");
+    Console.SetCursorPosition(34, 2);
+    Console.Write("Lives : ");
 
     // for to write all the hearts
     Console.ForegroundColor = ConsoleColor.Red;
@@ -569,7 +571,8 @@ void NewGame()
     Console.ForegroundColor = ConsoleColor.Green;
 
     // Write score
-    Console.Write("\t\tScore : ");
+    Console.SetCursorPosition(49, 2);
+    Console.Write("Score : ");
     Console.Write(player.Score);
 
     // Line break
@@ -623,13 +626,13 @@ void NewGame()
     }
 
     // Display ship
-    Console.SetCursorPosition(INTLARGEUR / 2, Console.WindowHeight - 8);
+    Console.SetCursorPosition(ship.LocationX, ship.LocationY);
     Console.WriteLine("    █    ");
-    Console.SetCursorPosition(INTLARGEUR / 2, Console.WindowHeight - 7);
+    Console.SetCursorPosition(ship.LocationX, ship.LocationY + 1);
     Console.WriteLine("  █████  ");
-    Console.SetCursorPosition(INTLARGEUR / 2, Console.WindowHeight - 6);
+    Console.SetCursorPosition(ship.LocationX, ship.LocationY + 2);
     Console.WriteLine("█████████");
-    Console.SetCursorPosition(INTLARGEUR / 2, Console.WindowHeight - 5);
+    Console.SetCursorPosition(ship.LocationX, ship.LocationY + 3);
     Console.WriteLine("█████████");
 
     // Timer to do a break between alien moves
@@ -763,7 +766,7 @@ void ShotPlayer(object state)
 
             foreach (Alien alien in listAliveAliens)
             {
-                if (shot.LocationX > alien.LocationX && shot.LocationX < alien.LocationX + 12 && shot.LocationY > alien.LocationY && shot.LocationY < alien.LocationY + 5)
+                if (shot.LocationX >= alien.LocationX && shot.LocationX <= alien.LocationX + 12 && shot.LocationY >= alien.LocationY && shot.LocationY <= alien.LocationY + 5)
                 {
                     // Delete Alien
                     Console.SetCursorPosition(alien.LocationX, alien.LocationY);
@@ -785,6 +788,12 @@ void ShotPlayer(object state)
                     Console.Write(" ");
                     listShot.RemoveAt(0);
 
+                    if (listAliveAliens.Count == 0)
+                    {
+                        NewGame();
+                        
+                    }
+
                     break;
                 }
             }
@@ -795,5 +804,5 @@ void ShotPlayer(object state)
 void GameOver()
 {
     Console.Clear();
-
+    Console.Write("You won !");
 }
