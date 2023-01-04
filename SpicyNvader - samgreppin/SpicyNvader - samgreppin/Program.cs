@@ -11,11 +11,13 @@ byte bytDifficulty = 1;                                                     // D
 const int INTLARGEUR = 200;                                                 // Width of the game
 List<Alien> listAliveAliens = new List<Alien>();                            // Alien list
 List<Shot> listShot = new List<Shot>();                                     // Shot list
+List<Obstacle> listObstacles = new List<Obstacle>();                        // Obstacle list
 bool advance = false;                                                       // Advance of the aliens
 string direction = "right";                                                 // Direction of the aliens
 Player player = new Player("x", 0);                                         // Creation of the player
 Ship ship= new Ship(INTLARGEUR / 2, Console.WindowHeight - 8, 3, true);     // Creation of the ship
 Shot shot = new Shot(ship.LocationX + 4, Console.WindowHeight - 9);         // Creation of a missile
+bool bolFirstGameVerify = true;                                             // Verify if it's the first game
 
 ///// Main code /////
 
@@ -593,7 +595,7 @@ void NewGame()
     {
         if (x < 5)
         {
-            Alien alien = new Alien(x, bytLocationX, 12, true);
+            Alien alien = new Alien(x, bytLocationX, 12, true, true);
             listAliveAliens.Add(alien);
             bytLocationX += 14;
 
@@ -604,7 +606,7 @@ void NewGame()
         }
         else
         {
-            Alien alien = new Alien(x, bytLocationX, 6, true);
+            Alien alien = new Alien(x, bytLocationX, 6, true, true);
             listAliveAliens.Add(alien);
             bytLocationX += 14;
         }
@@ -625,6 +627,8 @@ void NewGame()
         Console.WriteLine(" ▄▀     ▀▄");
     }
 
+    ship.LocationY = Console.WindowHeight - 8;
+
     // Display ship
     Console.SetCursorPosition(ship.LocationX, ship.LocationY);
     Console.WriteLine("    █    ");
@@ -635,13 +639,50 @@ void NewGame()
     Console.SetCursorPosition(ship.LocationX, ship.LocationY + 3);
     Console.WriteLine("█████████");
 
-    // Timer to do a break between alien moves
-    Timer moveTimer = new Timer(new TimerCallback(MoveAliens));
-    moveTimer.Change(0, 200);
+    if (bolFirstGameVerify == true)
+    {
+        // Creation of the obstacles
+        Obstacle obstacle1 = new Obstacle(10, 50, 3);
+        listObstacles.Add(obstacle1);
+        Obstacle obstacle2 = new Obstacle(60, 50, 3);
+        listObstacles.Add(obstacle2);
+        Obstacle obstacle3 = new Obstacle(110, 50, 3);
+        listObstacles.Add(obstacle3);
+        Obstacle obstacle4 = new Obstacle(160, 50, 3);
+        listObstacles.Add(obstacle4);
+    }
 
-    // Timer to do a break between alien moves
-    Timer shotTimer = new Timer(new TimerCallback(ShotPlayer));
-    shotTimer.Change(0, 80);
+    // Display obstacle
+    foreach (Obstacle obstacle in listObstacles)
+    {
+        if (obstacle.Health == 3)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+        }
+        else if (obstacle.Health == 2)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+        }
+        else if (obstacle.Health == 1)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+        }
+        Console.SetCursorPosition(obstacle.LocationX, obstacle.LocationY);
+        Console.Write("██████████████████████████████");
+        Console.SetCursorPosition(obstacle.LocationX, obstacle.LocationY + 1);
+        Console.Write("██████████████████████████████");
+    }
+
+    if (bolFirstGameVerify == true)
+    {
+        // Timer to do a break between alien moves
+        Timer moveTimer = new Timer(new TimerCallback(MoveAliens));
+        moveTimer.Change(0, 200);
+
+        // Timer to do a break between alien moves
+        Timer shotTimer = new Timer(new TimerCallback(ShotPlayer));
+        shotTimer.Change(0, 80);
+    }
 
     // Shot
     while (true)
@@ -649,13 +690,16 @@ void NewGame()
         switch (Console.ReadKey(true).Key)
         {
             case ConsoleKey.Spacebar:
-                Shot shot = new Shot(ship.LocationX + 4, 53);
-                listShot.Add(shot);
+                if (listShot.Count == 0)
+                {
+                    Shot shot = new Shot(ship.LocationX + 4, 53);
+                    listShot.Add(shot);
 
-                Console.SetCursorPosition(shot.LocationX, shot.LocationY);
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.Write("|");
-                Console.ForegroundColor = ConsoleColor.Green;
+                    Console.SetCursorPosition(shot.LocationX, shot.LocationY);
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("|");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                }
                 break;
 
             // If the player press the left arrow
@@ -682,6 +726,8 @@ void NewGame()
 
 void MoveAliens(object state)
 {
+    bolFirstGameVerify = false;
+
     // Move aliens
     foreach (Alien aliens in listAliveAliens)
     {
@@ -733,17 +779,20 @@ void MoveAliens(object state)
         {
             foreach (Alien alien in listAliveAliens)
             {
+                alien.Shootable = false;
                 Console.MoveBufferArea(alien.LocationX, alien.LocationY, 12, 5, alien.LocationX + 2, alien.LocationY);
                 alien.LocationX += 2;
+                alien.Shootable = true;
             }
-
         }
         else if (direction == "left")
         {
             foreach (Alien alien in listAliveAliens)
             {
+                alien.Shootable = false;
                 Console.MoveBufferArea(alien.LocationX, alien.LocationY, 12, 5, alien.LocationX - 2, alien.LocationY);
                 alien.LocationX -= 2;
+                alien.Shootable = true;
             }
         }
     }
@@ -766,7 +815,7 @@ void ShotPlayer(object state)
 
             foreach (Alien alien in listAliveAliens)
             {
-                if (shot.LocationX >= alien.LocationX && shot.LocationX <= alien.LocationX + 12 && shot.LocationY >= alien.LocationY && shot.LocationY <= alien.LocationY + 5)
+                if (shot.LocationX >= alien.LocationX && shot.LocationX <= alien.LocationX + 12 && shot.LocationY >= alien.LocationY && shot.LocationY <= alien.LocationY + 5 && alien.Shootable == true)
                 {
                     // Delete Alien
                     Console.SetCursorPosition(alien.LocationX, alien.LocationY);
@@ -783,6 +832,11 @@ void ShotPlayer(object state)
                     Console.Write("            ");
                     listAliveAliens.Remove(alien);
 
+
+                    player.Score = player.Score + 100;
+                    Console.SetCursorPosition(57, 2);
+                    Console.Write(player.Score);
+
                     // Delete Shot
                     Console.SetCursorPosition(shot.LocationX, shot.LocationY);
                     Console.Write(" ");
@@ -792,6 +846,51 @@ void ShotPlayer(object state)
                     {
                         NewGame();
                         
+                    }
+
+                    break;
+                }
+            }
+
+            foreach (Obstacle obstacle in listObstacles)
+            {
+                if (shot.LocationX >= obstacle.LocationX && shot.LocationX <= obstacle.LocationX + 30 && shot.LocationY >= obstacle.LocationY && shot.LocationY <= obstacle.LocationY + 1)
+                {
+                    // Delete Shot
+                    Console.SetCursorPosition(shot.LocationX, shot.LocationY);
+                    Console.Write(" ");
+                    listShot.RemoveAt(0);
+
+
+                    // Hit obstacle
+                    if (obstacle.Health == 3)
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.SetCursorPosition(obstacle.LocationX, obstacle.LocationY);
+                        Console.Write("██████████████████████████████");
+                        Console.SetCursorPosition(obstacle.LocationX, obstacle.LocationY + 1);
+                        Console.Write("██████████████████████████████");
+                    }
+                    else if (obstacle.Health == 2)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.SetCursorPosition(obstacle.LocationX, obstacle.LocationY);
+                        Console.Write("██████████████████████████████");
+                        Console.SetCursorPosition(obstacle.LocationX, obstacle.LocationY + 1);
+                        Console.Write("██████████████████████████████");
+                    }
+                    else if (obstacle.Health == 1)
+                    {
+                        Console.SetCursorPosition(obstacle.LocationX, obstacle.LocationY);
+                        Console.Write("                              ");
+                        Console.SetCursorPosition(obstacle.LocationX, obstacle.LocationY + 1);
+                        Console.Write("                              ");
+                    }
+                    obstacle.Health -= 1;
+
+                    if (obstacle.Health <= 0)
+                    {
+                        listObstacles.Remove(obstacle);
                     }
 
                     break;

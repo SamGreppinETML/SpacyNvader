@@ -8,16 +8,19 @@ namespace Classes
 {
     public class Obstacle
     {
-        private int location;
+        private int locationX;
+        private int locationY;
         private byte health;
 
-        public Obstacle(int location, byte health)
+        public Obstacle(int locationX, int locationY, byte health)
         {
-            this.Location = location;
+            this.LocationX = locationX;
+            this.LocationY = locationY;
             this.Health = health;
         }
 
-        public int Location { get => location; set => location = value; }
+        public int LocationX { get => locationX; set => locationX = value; }
+        public int LocationY { get => locationY; set => locationY = value; }
         public byte Health { get => health; set => health = value; }
     }
 }
