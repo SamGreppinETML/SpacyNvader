@@ -6,14 +6,22 @@ using System.Threading.Tasks;
 
 namespace Classes
 {
+    /*
+     * Cette classe permet de créer le vaisseau du joueur.
+     * 
+     * Ship int locationX
+     * Ship int locationY
+     * Ship int health
+     * Ship bool alive
+     */
     public class Ship
     {
         private int locationX;
         private int locationY;
-        private byte health;
+        private int health;
         private bool alive;
 
-        public Ship(int locationX, int locationY, byte health, bool alive)
+        public Ship(int locationX, int locationY, int health, bool alive)
         {
             this.LocationX = locationX;
             this.LocationY = locationY;
@@ -23,7 +31,7 @@ namespace Classes
 
         public int LocationX { get => locationX; set => locationX = value; }
         public int LocationY { get => locationY; set => locationY = value; }
-        public byte Health { get => health; set => health = value; }
+        public int Health { get => health; set => health = value; }
         public bool Alive { get => alive; set => alive = value; }
 
         public void moveRight(Ship ship)

@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace Classes
 {
+    /*
+     * Cette classe permet de créer les tirs des aliens et du joueur.
+     * 
+     * Shot int locationX
+     * Shot int locationY
+     */
     public class Shot
     {
         private int locationX;

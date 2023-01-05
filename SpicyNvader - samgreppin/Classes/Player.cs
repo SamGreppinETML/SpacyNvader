@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace Classes
 {
+    /*
+     * Cette classe permet de créer le joueur.
+     * 
+     * Player string name
+     * Player int score
+     */
     public class Player
     {
         private string name;

@@ -3,21 +3,44 @@ using Classes;
 using System.Threading;
 using WMPLib;
 
+/*
+ *  Auteur : Sam Greppin
+ *  Date : 26.09.2022
+ *  Titre : Spicy Nvader
+ *  
+ *  Descripton : 
+ *  Ce programme qui a éété fait dans le cadre du P_Prod
+ *  consiste à créer un jeu vidéo s'inspirant fortement
+ *  du célèbre jeu Space Invaders. Nous contrôlons un
+ *  cannon pouvant tirer sur des aliens attaquant la
+ *  terre.
+ */
+
 ///// Variable declaration /////
 
 byte bytPositionY = 15;                                                     // Position Y of the arrow
 bool bolVolume = true;                                                      // Volume of the music
 byte bytDifficulty = 1;                                                     // Difficulty of the game
-const int INTLARGEUR = 200;                                                 // Width of the game
-List<Alien> listAliveAliens = new List<Alien>();                            // Alien list
-List<Shot> listShot = new List<Shot>();                                     // Shot list
-List<Obstacle> listObstacles = new List<Obstacle>();                        // Obstacle list
 bool advance = false;                                                       // Advance of the aliens
 string direction = "right";                                                 // Direction of the aliens
+bool bolFirstGameVerify = true;                                             // Verify if it's the first game
+bool bolIsPlayerAlive = true;                                               // Verify if the player is still alive
+
+// Constant
+const int INTLARGEUR = 200;                                                 // Width of the game
+
+// Class
 Player player = new Player("x", 0);                                         // Creation of the player
 Ship ship= new Ship(INTLARGEUR / 2, Console.WindowHeight - 8, 3, true);     // Creation of the ship
 Shot shot = new Shot(ship.LocationX + 4, Console.WindowHeight - 9);         // Creation of a missile
-bool bolFirstGameVerify = true;                                             // Verify if it's the first game
+
+// List
+List<Alien> listAliveAliens = new List<Alien>();                            // Alien list
+List<Alien> listAliensCanShoot = new List<Alien>();                         // Alien can shoot
+List<Shot> listShot = new List<Shot>();                                     // Shot list
+List<Obstacle> listObstacles = new List<Obstacle>();                        // Obstacle list
+List<Shot> listShotAliens = new List<Shot>();                               // Alien shot list
+List<Timer> listTimer = new List<Timer>();                                  // List of the timers
 
 ///// Main code /////
 
@@ -32,7 +55,13 @@ wMPPlayer.URL = Directory.GetCurrentDirectory() + @"\chad.mp3";
 // Call DisplayMenu()
 DisplayMenu();
 
-// Display the menu
+/*
+ * Name : DisplayMenu
+ * 
+ * Description :
+ * This method display the menu and the different 
+ * option to select.
+ */
 void DisplayMenu()
 {
     // Clear the console
@@ -201,7 +230,14 @@ void DisplayMenu()
     }
 }
 
-// Select the username
+/*
+ * Name : SelectUsername
+ * 
+ * Description :
+ * This method ask the player to choose a 
+ * username and verify it. If the username
+ * is correct, it save it.
+ */
 void SelectUsername()
 {
     // Verify variable
@@ -309,7 +345,13 @@ void SelectUsername()
     }
 }
 
-// Open settings
+/*
+ * Name : SelectSettings
+ * 
+ * Description :
+ * This method display the settings. It saves
+ * the modifications of the player.
+ */
 void SelectSettings()
 {
     // Verify variable
@@ -449,7 +491,13 @@ void SelectSettings()
     }
 }
 
-// Select score
+/*
+ * Name : SelectScore
+ * 
+ * Description :
+ * This method display the score of the
+ * differents players.
+ */
 void SelectScore()
 {
     // Clear the console
@@ -483,7 +531,13 @@ void SelectScore()
     }
 }
 
-// Select about
+/*
+ * Name : SelectAbout
+ * 
+ * Description :
+ * This method display the description on
+ * the game.
+ */
 void SelectAbout()
 {
     // Clear the console
@@ -518,20 +572,22 @@ void SelectAbout()
     // Verify the key
     while (true)
     {
-        switch (Console.ReadKey().Key)
+        switch (Console.ReadKey(true).Key)
         {
             // If the player press the up arrow
             case ConsoleKey.Escape:
                 DisplayMenu();
                 break;
         }
-        Console.SetCursorPosition(0, 20);
-        Console.WriteLine(" ");
-        Console.SetCursorPosition(0, 20);
     }
 }
 
-// Select exit
+/*
+ * Name : SelectExit
+ * 
+ * Description :
+ * This method quit the application.
+ */
 void SelectExit()
 {
     // Clear the console
@@ -548,11 +604,19 @@ void SelectExit()
     Environment.Exit(0);
 }
 
-// New game
+/*
+ * Name : NewGame
+ * 
+ * Description :
+ * This method start the game, creates
+ * the aliens, obstacles and the timers.
+ */
 void NewGame()
 {
     // Clear the console
     Console.Clear();
+
+    Console.ForegroundColor = ConsoleColor.Green;
 
     // Write the header
     // Write username
@@ -595,7 +659,7 @@ void NewGame()
     {
         if (x < 5)
         {
-            Alien alien = new Alien(x, bytLocationX, 12, true, true);
+            Alien alien = new Alien(x, bytLocationX, 12, true);
             listAliveAliens.Add(alien);
             bytLocationX += 14;
 
@@ -606,7 +670,7 @@ void NewGame()
         }
         else
         {
-            Alien alien = new Alien(x, bytLocationX, 6, true, true);
+            Alien alien = new Alien(x, bytLocationX, 6, true);
             listAliveAliens.Add(alien);
             bytLocationX += 14;
         }
@@ -675,26 +739,56 @@ void NewGame()
 
     if (bolFirstGameVerify == true)
     {
-        // Timer to do a break between alien moves
-        Timer moveTimer = new Timer(new TimerCallback(MoveAliens));
-        moveTimer.Change(0, 200);
-
-        // Timer to do a break between alien moves
+        // Timer to move the player's shot
         Timer shotTimer = new Timer(new TimerCallback(ShotPlayer));
         shotTimer.Change(0, 80);
+        listTimer.Add(shotTimer);
+
+        // Timer to do a break between alien moves
+        Timer moveTimer = new Timer(new TimerCallback(MoveAliens));
+        if (bytDifficulty == 1)
+        {
+            moveTimer.Change(0, 200);
+        }
+        if (bytDifficulty == 2)
+        {
+            moveTimer.Change(0, 100);
+        }
+        listTimer.Add(moveTimer);
+
+        // Timer to move the alien's shot
+        Timer alienShotTimer = new Timer(new TimerCallback(ShotAliens));
+        alienShotTimer.Change(0, 80);
+        listTimer.Add(alienShotTimer);
+
+        // Timer for alien shots
+        Timer chooseAlienTimer = new Timer(new TimerCallback(ChooseAlien));
+        if (bytDifficulty == 1)
+        {
+            chooseAlienTimer.Change(0, 2000);
+        }
+        if (bytDifficulty == 2)
+        {
+            chooseAlienTimer.Change(0, 300);
+        }
+        listTimer.Add(chooseAlienTimer);
     }
 
-    // Shot
+    // Read the keys
     while (true)
     {
         switch (Console.ReadKey(true).Key)
         {
+            // If the player press the spacebar
             case ConsoleKey.Spacebar:
                 if (listShot.Count == 0)
                 {
+                    // Create a new shot
                     Shot shot = new Shot(ship.LocationX + 4, 53);
+                    // Add the shot to the list
                     listShot.Add(shot);
 
+                    // Display the missile at the right position
                     Console.SetCursorPosition(shot.LocationX, shot.LocationY);
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("|");
@@ -706,15 +800,18 @@ void NewGame()
             case ConsoleKey.LeftArrow:
                 if (ship.LocationX > 1)
                 {
+                    // Move the player to the left
                     Console.MoveBufferArea(ship.LocationX, Console.WindowHeight - 8, 9, 4, ship.LocationX - 1, Console.WindowHeight - 8);
                     // Change the location of the player
                     ship.LocationX -= 1;
                 }
                 break;
 
+            // If the player press the right arrow
             case ConsoleKey.RightArrow:
                 if (ship.LocationX < INTLARGEUR - 10)
                 {
+                    // Move the player to the right
                     Console.MoveBufferArea(ship.LocationX, Console.WindowHeight - 8, 9, 4, ship.LocationX + 1, Console.WindowHeight - 8);
                     // Change the location of the player
                     ship.LocationX += 1;
@@ -724,11 +821,31 @@ void NewGame()
     }
 }
 
+/*
+ * Name : MoveAliens
+ * 
+ * Description :
+ * The method of the timermoveTimer
+ * moves the aliens.
+ */
 void MoveAliens(object state)
 {
     bolFirstGameVerify = false;
 
-    // Move aliens
+    // Stop the game and the timers if the aliens are on the finish
+    foreach (Alien alien in listAliveAliens)
+    {
+        if (alien.LocationY >= 40)
+        {
+            foreach (Timer timer in listTimer)
+            {
+                timer.Dispose();
+            }
+            GameOver();
+        }
+    }
+
+    // Verify if the aliens are full right or left
     foreach (Alien aliens in listAliveAliens)
     {
         if (aliens.LocationY == 60)
@@ -737,6 +854,7 @@ void MoveAliens(object state)
         }
         else
         {
+            // If the aliens touch the right limit
             if (direction == "right")
             {
                 if (aliens.LocationX >= INTLARGEUR - 13)
@@ -744,6 +862,7 @@ void MoveAliens(object state)
                     advance = true;
                 }
             }
+            // If the aliens touch the left limit
             else if (direction == "left")
             {
                 if (aliens.LocationX <= 2)
@@ -754,6 +873,7 @@ void MoveAliens(object state)
         }
     }
 
+    // Move the aliens to the bottom
     if (advance)
     {
         foreach (Alien aliens in listAliveAliens)
@@ -773,49 +893,57 @@ void MoveAliens(object state)
 
         advance = false;
     }
+    // Move the aliens right or left
     else
     {
+        // Move the aliens to the right
         if (direction == "right")
         {
             foreach (Alien alien in listAliveAliens)
             {
-                alien.Shootable = false;
                 Console.MoveBufferArea(alien.LocationX, alien.LocationY, 12, 5, alien.LocationX + 2, alien.LocationY);
                 alien.LocationX += 2;
-                alien.Shootable = true;
             }
         }
+        // Move the aliens to the left
         else if (direction == "left")
         {
             foreach (Alien alien in listAliveAliens)
             {
-                alien.Shootable = false;
                 Console.MoveBufferArea(alien.LocationX, alien.LocationY, 12, 5, alien.LocationX - 2, alien.LocationY);
                 alien.LocationX -= 2;
-                alien.Shootable = true;
             }
         }
     }
 }
 
+/*
+ * Name : ShotPlayer
+ * 
+ * Description :
+ * The method of the shotTimer
+ * moves the shots of the player.
+ */
 void ShotPlayer(object state)
 {
     if (listShot.Count > 0)
     {
         foreach (Shot shot in listShot.ToArray())
         {
+            // Move the shot of the player to the top
             shot.LocationY -= 1;
             Console.MoveBufferArea(shot.LocationX, shot.LocationY + 1, 1, 1, shot.LocationX, shot.LocationY);
             if (shot.LocationY < 7)
             {
                 Console.SetCursorPosition(shot.LocationX, shot.LocationY);
                 Console.Write(" ");
-                listShot.RemoveAt(0);
+                listShot.Remove(shot);
             }
 
             foreach (Alien alien in listAliveAliens)
-            {
-                if (shot.LocationX >= alien.LocationX && shot.LocationX <= alien.LocationX + 12 && shot.LocationY >= alien.LocationY && shot.LocationY <= alien.LocationY + 5 && alien.Shootable == true)
+            {   
+                // Verify if the shot touch an alien
+                if (shot.LocationX >= alien.LocationX && shot.LocationX <= alien.LocationX + 12 && shot.LocationY >= alien.LocationY && shot.LocationY <= alien.LocationY + 5)
                 {
                     // Delete Alien
                     Console.SetCursorPosition(alien.LocationX, alien.LocationY);
@@ -830,9 +958,12 @@ void ShotPlayer(object state)
                     Console.Write("            ");
                     Console.SetCursorPosition(alien.LocationX, alien.LocationY+5);
                     Console.Write("            ");
+
+                    // Remove the alien from the lists
                     listAliveAliens.Remove(alien);
+                    listAliensCanShoot.Remove(alien);
 
-
+                    // Add score to the player
                     player.Score = player.Score + 100;
                     Console.SetCursorPosition(57, 2);
                     Console.Write(player.Score);
@@ -842,10 +973,10 @@ void ShotPlayer(object state)
                     Console.Write(" ");
                     listShot.RemoveAt(0);
 
+                    // If all aliens are dead it starts a new game
                     if (listAliveAliens.Count == 0)
                     {
                         NewGame();
-                        
                     }
 
                     break;
@@ -854,6 +985,7 @@ void ShotPlayer(object state)
 
             foreach (Obstacle obstacle in listObstacles)
             {
+                // Verify if the shot touch an obstacle
                 if (shot.LocationX >= obstacle.LocationX && shot.LocationX <= obstacle.LocationX + 30 && shot.LocationY >= obstacle.LocationY && shot.LocationY <= obstacle.LocationY + 1)
                 {
                     // Delete Shot
@@ -862,7 +994,7 @@ void ShotPlayer(object state)
                     listShot.RemoveAt(0);
 
 
-                    // Hit obstacle
+                    // Change the health of the obstacle
                     if (obstacle.Health == 3)
                     {
                         Console.ForegroundColor = ConsoleColor.DarkYellow;
@@ -888,8 +1020,10 @@ void ShotPlayer(object state)
                     }
                     obstacle.Health -= 1;
 
+                    // Verify if the obstacle is destroy
                     if (obstacle.Health <= 0)
                     {
+                        // Delete the obstacle from the list
                         listObstacles.Remove(obstacle);
                     }
 
@@ -900,8 +1034,219 @@ void ShotPlayer(object state)
     }
 }
 
+/*
+ * Name : ShotAliens
+ * 
+ * Description :
+ * The method of the alienShotTimer
+ * moves the shots of the alien.
+ */
+void ShotAliens(object state)
+{
+    foreach (Shot shot in listShotAliens.ToArray())
+    {
+        // Remove the shot if it touch the bottom
+        if (shot.LocationY >= 60)
+        {
+            Console.SetCursorPosition(shot.LocationX, shot.LocationY);
+            Console.Write(" ");
+            listShotAliens.Remove(shot);
+        }
+        else
+        {
+            // Verify if it touch the player
+            if (shot.LocationX >= ship.LocationX && shot.LocationX <= ship.LocationX + 9 && shot.LocationY >= ship.LocationY - 1 && shot.LocationY <= ship.LocationY + 4)
+            {
+                // Delete the shot
+                Console.SetCursorPosition(shot.LocationX, shot.LocationY);
+                Console.Write(" ");
+                listShotAliens.Remove(shot);
+
+                // Reduce the health of the ship
+                if (ship.Health == 3)
+                {
+                    Console.SetCursorPosition(44, 2);
+                    Console.Write(" ");
+                    ship.Health = ship.Health - 1;
+                }
+                else if (ship.Health == 2)
+                {
+                    Console.SetCursorPosition(43, 2);
+                    Console.Write(" ");
+                    ship.Health = ship.Health - 1;
+                }
+                else if (ship.Health == 1)
+                {
+                    // Stop the timers and the game if the ship is destroyed
+                    foreach (Timer timer in listTimer)
+                    {
+                        timer.Dispose();
+                    }
+                    GameOver();
+                }
+            }
+            else
+            {
+                // Move the shot to the bottom
+                Console.SetCursorPosition(shot.LocationX, shot.LocationY);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write("Y");
+                Console.ForegroundColor = ConsoleColor.Green;
+
+                shot.LocationY += 1;
+                Console.MoveBufferArea(shot.LocationX, shot.LocationY - 1, 1, 1, shot.LocationX, shot.LocationY);
+            }
+        }
+
+        foreach (Obstacle obstacle in listObstacles)
+        {
+            // Verify if the missile touched an obstacle
+            if (shot.LocationX >= obstacle.LocationX && shot.LocationX <= obstacle.LocationX + 30 && shot.LocationY >= obstacle.LocationY && shot.LocationY <= obstacle.LocationY + 1)
+            {
+                // Delete Shot
+                Console.SetCursorPosition(shot.LocationX, shot.LocationY);
+                Console.Write(" ");
+                listShotAliens.Remove(shot);
+
+
+                // Change the health of the obstacle
+                if (obstacle.Health == 3)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.SetCursorPosition(obstacle.LocationX, obstacle.LocationY);
+                    Console.Write("██████████████████████████████");
+                    Console.SetCursorPosition(obstacle.LocationX, obstacle.LocationY + 1);
+                    Console.Write("██████████████████████████████");
+                }
+                else if (obstacle.Health == 2)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.SetCursorPosition(obstacle.LocationX, obstacle.LocationY);
+                    Console.Write("██████████████████████████████");
+                    Console.SetCursorPosition(obstacle.LocationX, obstacle.LocationY + 1);
+                    Console.Write("██████████████████████████████");
+                }
+                else if (obstacle.Health == 1)
+                {
+                    Console.SetCursorPosition(obstacle.LocationX, obstacle.LocationY);
+                    Console.Write("                              ");
+                    Console.SetCursorPosition(obstacle.LocationX, obstacle.LocationY + 1);
+                    Console.Write("                              ");
+                }
+                obstacle.Health -= 1;
+
+                // Verify if the obstacle is destroyed
+                if (obstacle.Health <= 0)
+                {
+                    // Delete the obstacle from the list
+                    listObstacles.Remove(obstacle);
+                }
+
+                break;
+            }
+        }
+    }
+}
+
+/*
+ * Name : ChooseAlien
+ * 
+ * Description :
+ * The method of the chooseAlienTimer
+ * choose a random alien to shoot.
+ */
+void ChooseAlien(object state)
+{
+    Random rnd = new Random();                                          // Random variable
+    int num;                                                            // Valeure aléatoire
+    byte bytNumberOfAliens = Convert.ToByte(listAliveAliens.Count);     // Number of aliens alive
+    bool bolAlienDown = false;                                          // Verify if a bottom alien is still alive
+
+    foreach (Alien alien in listAliveAliens)
+    {
+        for (byte x = 0; x < bytNumberOfAliens; x++)
+        {
+            // Verify if a bottom alien is alive and put it in a list
+            if (alien.LocationY > listAliveAliens[x].LocationY)
+            {
+                listAliensCanShoot.Add(alien);
+                bolAlienDown = true;
+            }
+            else
+            {
+                // Add all the top aliens
+                if (bolAlienDown == false)
+                {
+                    listAliensCanShoot.Add(alien);
+                }
+            }
+        }
+    }
+
+    // Generate a random number to choose the shooting alien
+    num = rnd.Next(listAliensCanShoot.Count);
+
+    foreach (Alien alien in listAliveAliens)
+    {
+        if (alien == listAliensCanShoot[num])
+        {
+            // Make the alien shoot
+            Shot shot = new Shot(alien.LocationX + 5, alien.LocationY + 4);
+            listShotAliens.Add(shot);
+        }
+    }
+}
+
+/*
+ * Name : ShotPlayer
+ * 
+ * Description :
+ * This method display the Game Over
+ * screen and the score of the player.
+ */
 void GameOver()
 {
+    // Clear the console
     Console.Clear();
-    Console.Write("You won !");
+
+    // Position of the cursor at the start
+    Console.SetCursorPosition(0, 0);
+
+    // Change the color
+    Console.ForegroundColor = ConsoleColor.Green;
+
+    // Line break
+    Console.WriteLine();
+    Console.WriteLine();
+
+    // Title display
+    Console.WriteLine("\t  /$$$$$$                                           /$$$$$$");
+    Console.WriteLine("\t /$$__  $$                                         /$$__  $$");
+    Console.WriteLine("\t| $$  \\__/  /$$$$$$  /$$$$$$/$$$$   /$$$$$$       | $$  \\ $$ /$$    /$$ /$$$$$$   /$$$$$$");
+    Console.WriteLine("\t| $$ /$$$$ |____  $$| $$_  $$_  $$ /$$__  $$      | $$  | $$|  $$  /$$//$$__  $$ /$$__  $$");
+    Console.WriteLine("\t| $$|_  $$  /$$$$$$$| $$ \\ $$ \\ $$| $$$$$$$$      | $$  | $$ \\  $$/$$/| $$$$$$$$| $$  \\__/");
+    Console.WriteLine("\t| $$  \\ $$ /$$__  $$| $$ | $$ | $$| $$_____/      | $$  | $$  \\  $$$/ | $$_____/| $$");
+    Console.WriteLine("\t|  $$$$$$/|  $$$$$$$| $$ | $$ | $$|  $$$$$$$      |  $$$$$$/   \\  $/  |  $$$$$$$| $$");
+    Console.WriteLine("\t \\______/  \\_______/|__/ |__/ |__/ \\_______/       \\______/     \\_/    \\_______/|__/");
+
+    // Write the score of the player
+    Console.Write("\n\n\tYour score : " + player.Score);
+
+    // Write indications
+    Console.Write("\n\n\tPress Esc to go to the menu.");
+
+    // Put the First game to true
+    bolFirstGameVerify = true;
+
+    // Verify the key
+    while (true)
+    {
+        switch (Console.ReadKey(true).Key)
+        {
+            // If the player press the up arrow
+            case ConsoleKey.Escape:
+                DisplayMenu();
+                break;
+        }
+    }
 }

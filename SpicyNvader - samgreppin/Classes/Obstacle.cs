@@ -6,6 +6,13 @@ using System.Threading.Tasks;
 
 namespace Classes
 {
+    /*
+     * Cette classe permet de créer les obstacles.
+     * 
+     * Obstacle int locationX
+     * Obstacle int locationY
+     * Obstacle byte health
+     */
     public class Obstacle
     {
         private int locationX;
