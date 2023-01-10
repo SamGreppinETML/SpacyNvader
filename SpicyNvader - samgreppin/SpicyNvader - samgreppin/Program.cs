@@ -139,6 +139,9 @@ void DisplayMenu()
     // Retenue
     byte bytPositionRetenue = 15;
 
+    Console.SetCursorPosition(75, 38);
+    Console.Write("Version 1.0");
+
     // Boucle pour savoir la touche appuyée
     while (true)
     {
@@ -1239,14 +1242,11 @@ void GameOver()
     bolFirstGameVerify = true;
 
     // Verify the key
-    while (true)
+    switch (Console.ReadKey(true).Key)
     {
-        switch (Console.ReadKey(true).Key)
-        {
-            // If the player press the up arrow
-            case ConsoleKey.Escape:
-                DisplayMenu();
-                break;
-        }
+        // If the player press the up arrow
+        case ConsoleKey.Escape:
+            DisplayMenu();
+            break;
     }
 }
