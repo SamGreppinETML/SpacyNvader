@@ -139,7 +139,7 @@ void DisplayMenu()
     // Retenue
     byte bytPositionRetenue = 15;
 
-    Console.SetCursorPosition(75, 38);
+    Console.SetCursorPosition(95, 38);
     Console.Write("Version 1.0");
 
     // Boucle pour savoir la touche appuyée
