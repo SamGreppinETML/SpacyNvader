@@ -780,6 +780,7 @@ void NewGame()
     // Read the keys
     while (true)
     {
+        Console.CursorVisible = false;
         switch (Console.ReadKey(true).Key)
         {
             // If the player press the spacebar
@@ -849,7 +850,7 @@ void MoveAliens(object state)
     }
 
     // Verify if the aliens are full right or left
-    foreach (Alien aliens in listAliveAliens)
+    foreach (Alien aliens in listAliveAliens.ToArray())
     {
         if (aliens.LocationY == 60)
         {
@@ -879,7 +880,7 @@ void MoveAliens(object state)
     // Move the aliens to the bottom
     if (advance)
     {
-        foreach (Alien aliens in listAliveAliens)
+        foreach (Alien aliens in listAliveAliens.ToArray())
         {
             Console.MoveBufferArea(aliens.LocationX, aliens.LocationY, 12, 5, aliens.LocationX, aliens.LocationY + 3);
             aliens.LocationY += 3;
