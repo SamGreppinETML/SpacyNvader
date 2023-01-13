@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\samgreppin\\Documents\\GitHub\\SpacyNvader\\SpicyNvader - samgreppin\\Classes\\Classes.csproj": {}
+    "C:\\Users\\theba\\Desktop\\SpacyNvader\\SpicyNvader - samgreppin\\Classes\\Classes.csproj": {}
   },
   "projects": {
-    "C:\\Users\\samgreppin\\Documents\\GitHub\\SpacyNvader\\SpicyNvader - samgreppin\\Classes\\Classes.csproj": {
+    "C:\\Users\\theba\\Desktop\\SpacyNvader\\SpicyNvader - samgreppin\\Classes\\Classes.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\samgreppin\\Documents\\GitHub\\SpacyNvader\\SpicyNvader - samgreppin\\Classes\\Classes.csproj",
+        "projectUniqueName": "C:\\Users\\theba\\Desktop\\SpacyNvader\\SpicyNvader - samgreppin\\Classes\\Classes.csproj",
         "projectName": "Classes",
-        "projectPath": "C:\\Users\\samgreppin\\Documents\\GitHub\\SpacyNvader\\SpicyNvader - samgreppin\\Classes\\Classes.csproj",
-        "packagesPath": "C:\\Users\\samgreppin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\samgreppin\\Documents\\GitHub\\SpacyNvader\\SpicyNvader - samgreppin\\Classes\\obj\\",
+        "projectPath": "C:\\Users\\theba\\Desktop\\SpacyNvader\\SpicyNvader - samgreppin\\Classes\\Classes.csproj",
+        "packagesPath": "C:\\Users\\theba\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\theba\\Desktop\\SpacyNvader\\SpicyNvader - samgreppin\\Classes\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\samgreppin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\theba\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -48,7 +45,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -57,7 +55,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

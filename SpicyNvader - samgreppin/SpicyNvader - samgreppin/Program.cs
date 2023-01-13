@@ -903,7 +903,7 @@ void MoveAliens(object state)
         // Move the aliens to the right
         if (direction == "right")
         {
-            foreach (Alien alien in listAliveAliens)
+            foreach (Alien alien in listAliveAliens.ToArray())
             {
                 Console.MoveBufferArea(alien.LocationX, alien.LocationY, 12, 5, alien.LocationX + 2, alien.LocationY);
                 alien.LocationX += 2;
@@ -912,7 +912,7 @@ void MoveAliens(object state)
         // Move the aliens to the left
         else if (direction == "left")
         {
-            foreach (Alien alien in listAliveAliens)
+            foreach (Alien alien in listAliveAliens.ToArray())
             {
                 Console.MoveBufferArea(alien.LocationX, alien.LocationY, 12, 5, alien.LocationX - 2, alien.LocationY);
                 alien.LocationX -= 2;
